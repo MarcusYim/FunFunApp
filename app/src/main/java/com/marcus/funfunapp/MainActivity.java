@@ -4,6 +4,7 @@ import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Bundle;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
@@ -27,6 +28,7 @@ public class MainActivity extends AppCompatActivity
         username = findViewById(R.id.username);
         password = findViewById(R.id.password);
         loginButton = findViewById(R.id.login);
+
         loginButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
@@ -45,7 +47,7 @@ public class MainActivity extends AppCompatActivity
         if (Objects.equals(username.getText().toString(), "admin") && Objects.equals(password.getText().toString(),"admin"))
         {
             Toast.makeText(MainActivity.this,"You have Authenticated Successfully",Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(v.getContext(), com.marcus.funfunapp.AddProduct.class);
+            Intent intent = new Intent(v.getContext(), WordChecklist.class);
             startActivity(intent);
         }
 

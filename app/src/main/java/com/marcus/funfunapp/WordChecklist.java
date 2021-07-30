@@ -2,16 +2,24 @@ package com.marcus.funfunapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.widget.ArrayAdapter;
+import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-public class AddProduct extends AppCompatActivity
+public class WordChecklist extends AppCompatActivity
 {
+    ListView simpleListView;
+    String[] StringArray = new String[] {"abac", "sunday", "collide", "samantha", "liquor"};
+
     protected void onCreate(Bundle savedInstanceState)
     {
-        //sets screen to add_product screen
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_checklist);
+
+        simpleListView = (ListView) findViewById(R.id.simpleListView);
+        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item_view, R.id.itemTextView, StringArray);
+        simpleListView.setAdapter(adapter);
     }
 
     @Override
