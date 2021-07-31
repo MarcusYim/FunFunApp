@@ -10,7 +10,7 @@ import androidx.appcompat.app.AppCompatActivity;
 public class WordChecklist extends AppCompatActivity
 {
     ListView simpleListView;
-    String[] StringArray = new String[] {"abac", "sunday", "collide", "samantha", "liquor"};
+    String[] StringArray = new String[] {"abac", "sunday", "collide", "samantha", "liquor", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"};
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -18,7 +18,7 @@ public class WordChecklist extends AppCompatActivity
         setContentView(R.layout.word_checklist);
 
         simpleListView = (ListView) findViewById(R.id.simpleListView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<String>(this, R.layout.item_view, R.id.itemTextView, StringArray);
+        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_view, R.id.itemTextView, StringArray);
         simpleListView.setAdapter(adapter);
     }
 
