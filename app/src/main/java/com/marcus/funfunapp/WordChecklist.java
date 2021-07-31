@@ -7,21 +7,40 @@ import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.lang.reflect.Array;
+import java.util.ArrayList;
+import java.util.Arrays;
+
 public class WordChecklist extends AppCompatActivity
 {
     ListView simpleListView;
-    String[] StringArray = new String[] {"abac", "sunday", "collide", "samantha", "liquor", "a", "b", "c", "d", "e", "f", "g", "h", "i", "j", "k", "l", "m"};
+    String[] wordArr = new String[] {"ni", "wo", "shi", "na", "ta", "wo men"};
+    String[] defArr = new String[] {"you", "me", "is", "that", "she/him", "we"};
+
+    //defining page to display on
+    ListView simpleList;
+    //defining elements to be displayed
+    ArrayList<String> wordList = new ArrayList<String>();
+    ArrayList<String> defList = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_checklist);
 
-        simpleListView = (ListView) findViewById(R.id.simpleListView);
-        ArrayAdapter<String> adapter = new ArrayAdapter<>(this, R.layout.item_view, R.id.itemTextView, StringArray);
-        simpleListView.setAdapter(adapter);
+        //change this
+        wordList.addAll(Arrays.asList(wordArr));
+        defList.addAll(Arrays.asList(defArr));
+
+        //identify page to display on
+        simpleList = (ListView) findViewById(R.id.simpleListView);
+
+        //create and set custom adapter
+        WordsAdapter wordsAdapter = new WordsAdapter(this, R.layout.item_view, wordList, defList);
+        simpleList.setAdapter(wordsAdapter);
     }
 
+    //cannot press back to go to login page
     @Override
     public void onBackPressed()
     {
