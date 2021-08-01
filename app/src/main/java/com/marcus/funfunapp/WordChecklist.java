@@ -14,8 +14,10 @@ import java.util.Arrays;
 public class WordChecklist extends AppCompatActivity
 {
     ListView simpleListView;
-    String[] wordArr = new String[] {"ni", "wo", "shi", "na", "ta", "wo men"};
-    String[] defArr = new String[] {"you", "me", "is", "that", "she/him", "we"};
+    String[] wordArr = new String[] {"你", "我", "是", "那", "他", "我们"};
+    String[] defArr = new String[] {"you", "me", "is", "that", "him", "we"};
+
+    WordsAdapter wordsAdapter;
 
     //defining page to display on
     ListView simpleList;
@@ -36,7 +38,7 @@ public class WordChecklist extends AppCompatActivity
         simpleList = (ListView) findViewById(R.id.simpleListView);
 
         //create and set custom adapter
-        WordsAdapter wordsAdapter = new WordsAdapter(this, R.layout.item_view, wordList, defList);
+        wordsAdapter = new WordsAdapter(this, R.layout.item_view, wordList, defList);
         simpleList.setAdapter(wordsAdapter);
     }
 
@@ -44,9 +46,6 @@ public class WordChecklist extends AppCompatActivity
     @Override
     public void onBackPressed()
     {
-        Intent a = new Intent(Intent.ACTION_MAIN);
-        a.addCategory(Intent.CATEGORY_HOME);
-        a.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-        startActivity(a);
+
     }
 }

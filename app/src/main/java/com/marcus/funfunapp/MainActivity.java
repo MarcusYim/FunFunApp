@@ -3,11 +3,14 @@ package com.marcus.funfunapp;
 import android.annotation.TargetApi;
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+
+import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Objects;
@@ -45,15 +48,17 @@ public class MainActivity extends AppCompatActivity
         //checks credentials
         if (Objects.equals(username.getText().toString(), "admin") && Objects.equals(password.getText().toString(),"admin"))
         {
-            Toast.makeText(MainActivity.this,"You have Authenticated Successfully",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "You have Authenticated Successfully", Toast.LENGTH_LONG).show();
             Intent intent = new Intent(v.getContext(), WordChecklist.class);
             startActivity(intent);
         }
 
         else
         {
-            Toast.makeText(MainActivity.this,"Authentication Failed",Toast.LENGTH_LONG).show();
+            Toast.makeText(MainActivity.this, "Authentication Failed", Toast.LENGTH_LONG).show();
         }
     }
+
+
 }
 

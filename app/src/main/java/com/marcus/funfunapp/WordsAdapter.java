@@ -6,6 +6,8 @@ import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
+import android.widget.CheckBox;
+import android.widget.CompoundButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -17,6 +19,7 @@ public class WordsAdapter extends ArrayAdapter<String>
 {
     List<String> wordList = new ArrayList<>();
     List<String> defList = new ArrayList<>();
+    private boolean[] checkedHolder;
 
     public WordsAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects)
     {
@@ -24,6 +27,8 @@ public class WordsAdapter extends ArrayAdapter<String>
 
         wordList = wordObjects;
         defList = defObjects;
+
+        createCheckedHolder();
     }
 
     @Override
@@ -47,6 +52,23 @@ public class WordsAdapter extends ArrayAdapter<String>
         TextView defView = (TextView) v.findViewById(R.id.defView);
         defView.setText(defList.get(position));
 
+        CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
+        checkBox.setChecked(checkedHolder[position]);
+
+        checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                checkedHolder[position] = isChecked;
+            }
+        });
+
         return v;
+    }
+
+    private void createCheckedHolder()
+    {
+        checkedHolder = new boolean[getCount()];
     }
 }
