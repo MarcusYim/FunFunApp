@@ -2,6 +2,7 @@ package com.marcus.funfunapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.Button;
@@ -54,7 +55,10 @@ public class WordChecklist extends AppCompatActivity
         {
             public void onClick(View v)
             {
-
+                ArrayList<Integer> temp = getChecked();
+                Intent intent = new Intent(v.getContext(), FlashCard.class);
+                intent.putExtra("checked", temp);
+                startActivity(intent);
             }
         });
     }
@@ -66,7 +70,7 @@ public class WordChecklist extends AppCompatActivity
 
     }
 
-    public ArrayList<Integer> getChecked()
+    private ArrayList<Integer> getChecked()
     {
         return wordsAdapter.getChecked();
     }

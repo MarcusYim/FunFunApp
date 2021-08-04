@@ -2,6 +2,7 @@ package com.marcus.funfunapp;
 
 import android.content.ClipData;
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -19,7 +20,7 @@ public class WordsAdapter extends ArrayAdapter<String>
 {
     List<String> wordList = new ArrayList<>();
     List<String> defList = new ArrayList<>();
-    private boolean[] checkedHolder;
+    boolean[] checkedHolder;
 
     public WordsAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects)
     {
@@ -34,7 +35,7 @@ public class WordsAdapter extends ArrayAdapter<String>
     @Override
     public int getCount()
     {
-        return super.getCount();
+        return wordList.size();
     }
 
     @Override
@@ -70,6 +71,11 @@ public class WordsAdapter extends ArrayAdapter<String>
     private void createCheckedHolder()
     {
         checkedHolder = new boolean[getCount()];
+
+        for (int i = 0; i < getCount(); i++)
+        {
+            checkedHolder[i] = true;
+        }
     }
 
     public ArrayList<Integer> getChecked()

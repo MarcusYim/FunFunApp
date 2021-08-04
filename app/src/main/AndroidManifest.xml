@@ -25,6 +25,12 @@
             android:configChanges="orientation"  >
         </activity>
 
+        <activity
+            android:name=".FlashCard"
+            android:screenOrientation="portrait"
+            android:configChanges="orientation"  >
+        </activity>
+
     </application>
 
 </manifest>
