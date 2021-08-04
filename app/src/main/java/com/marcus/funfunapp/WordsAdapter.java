@@ -71,4 +71,19 @@ public class WordsAdapter extends ArrayAdapter<String>
     {
         checkedHolder = new boolean[getCount()];
     }
+
+    public ArrayList<Integer> getChecked()
+    {
+        ArrayList<Integer> ret = new ArrayList<Integer>();
+
+        for (int i = 0; i < checkedHolder.length; i++)
+        {
+            if (checkedHolder[i])
+            {
+                ret.add(i);
+            }
+        }
+
+        return ret;
+    }
 }

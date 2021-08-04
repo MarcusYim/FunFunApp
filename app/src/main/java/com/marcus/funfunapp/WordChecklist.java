@@ -2,7 +2,9 @@ package com.marcus.funfunapp;
 
 import android.content.Intent;
 import android.os.Bundle;
+import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ListView;
 
 import androidx.appcompat.app.AppCompatActivity;
@@ -14,13 +16,14 @@ import java.util.Arrays;
 public class WordChecklist extends AppCompatActivity
 {
     ListView simpleListView;
-    String[] wordArr = new String[] {"你", "我", "是", "那", "他", "我们"};
-    String[] defArr = new String[] {"you", "me", "is", "that", "him", "we"};
+    String[] wordArr;
+    String[] defArr;
 
     WordsAdapter wordsAdapter;
 
     //defining page to display on
     ListView simpleList;
+    Button studyButton;
     //defining elements to be displayed
     ArrayList<String> wordList = new ArrayList<String>();
     ArrayList<String> defList = new ArrayList<String>();
@@ -29,6 +32,10 @@ public class WordChecklist extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_checklist);
+
+        VarHolder var = new VarHolder();
+        wordArr = var.getWords();
+        defArr = var.getDefs();
 
         //change this
         wordList.addAll(Arrays.asList(wordArr));
@@ -40,6 +47,16 @@ public class WordChecklist extends AppCompatActivity
         //create and set custom adapter
         wordsAdapter = new WordsAdapter(this, R.layout.item_view, wordList, defList);
         simpleList.setAdapter(wordsAdapter);
+
+        studyButton = findViewById(R.id.study_button);
+
+        studyButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+
+            }
+        });
     }
 
     //cannot press back to go to login page
@@ -47,5 +64,10 @@ public class WordChecklist extends AppCompatActivity
     public void onBackPressed()
     {
 
+    }
+
+    public ArrayList<Integer> getChecked()
+    {
+        return wordsAdapter.getChecked();
     }
 }
