@@ -10,13 +10,13 @@
         android:layout_height="match_parent"
         android:padding="16dp"
         android:src="@drawable/rectangle"
-        app:tint="@color/white"  />
+        app:tint="@color/tan"  />
 
     <TextView
         android:id="@+id/flashcard_word"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:textColor="@color/red"
+        android:textColor="@color/brown"
         style="@style/Base.TextAppearance.AppCompat.Display1"
         android:gravity="center"/>
 

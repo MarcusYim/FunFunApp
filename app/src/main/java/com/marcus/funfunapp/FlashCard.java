@@ -9,12 +9,14 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageView;
 import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Random;
 
 public class FlashCard extends AppCompatActivity {
 
@@ -23,7 +25,7 @@ public class FlashCard extends AppCompatActivity {
     boolean mIsBackVisible = false;
     View mCardFrontLayout;
     View mCardBackLayout;
-    Button rightButton, leftButton;
+    Button rightButton, leftButton, shuffleButton;
     TextView back, front;
     String[] checkedWords;
     String[] checkedDefs;
@@ -113,6 +115,18 @@ public class FlashCard extends AppCompatActivity {
                 }
             }
         });
+
+        shuffleButton = findViewById(R.id.flashcard_button_shuffle);
+        shuffleButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                randomizeArray(checkedWords);
+                randomizeArray(checkedDefs);
+                front.setText(getCurrentWord());
+                back.setText(getCurrentDef());
+            }
+        });
     }
 
     private void initChecked()
@@ -143,6 +157,21 @@ public class FlashCard extends AppCompatActivity {
     private String getCurrentDef()
     {
         return checkedDefs[currentNum];
+    }
+
+    private String[] randomizeArray(String[] array)
+    {
+        Random rgen = new Random();
+
+        for (int i = 0; i < array.length; i++)
+        {
+            int randomPosition = rgen.nextInt(array.length);
+            String temp = array[i];
+            array[i] = array[randomPosition];
+            array[randomPosition] = temp;
+        }
+
+        return array;
     }
 }
 
