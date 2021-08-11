@@ -1,6 +1,7 @@
 package com.marcus.funfunapp;
 
 import android.content.Intent;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
@@ -8,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
+import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -37,6 +39,9 @@ public class WordChecklist extends AppCompatActivity
 
         initCustomView();
         initDropdownMenu();
+
+        TextView textView = findViewById(R.id.checklist_select);
+        textView.setBackgroundColor(getResources().getColor(R.color.text_back));
     }
 
     private void initCustomView()

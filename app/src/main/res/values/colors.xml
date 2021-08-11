@@ -16,4 +16,6 @@
     <color name="tan_dark">#FFE6AA</color>
     <color name="grey">#f5f5f5</color>
     <color name="grey_dark">#ACACAC</color>
+    <color name="text_grey">#606266</color>
+    <color name="text_back">#FFF6DF</color>
 </resources>
