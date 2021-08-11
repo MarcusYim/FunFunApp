@@ -5,6 +5,7 @@ import android.os.Bundle;
 import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
 
@@ -34,6 +35,12 @@ public class WordChecklist extends AppCompatActivity
         super.onCreate(savedInstanceState);
         setContentView(R.layout.word_checklist);
 
+        initCustomView();
+        initDropdownMenu();
+    }
+
+    private void initCustomView()
+    {
         VarHolder var = new VarHolder();
         wordArr = var.getWords();
         defArr = var.getDefs();
@@ -63,11 +70,12 @@ public class WordChecklist extends AppCompatActivity
         });
     }
 
-    //cannot press back to go to login page
-    @Override
-    public void onBackPressed()
+    private void initDropdownMenu()
     {
-
+        String[] lessons = getResources().getStringArray(R.array.level1);
+        ArrayAdapter<String> arrayAdapter = new ArrayAdapter<String>(this, R.layout.drop_menu_view, lessons);
+        AutoCompleteTextView autoCompleteTextView = (AutoCompleteTextView) findViewById(R.id.autoCompleteTextView);
+        autoCompleteTextView.setAdapter(arrayAdapter);
     }
 
     private ArrayList<Integer> getChecked()

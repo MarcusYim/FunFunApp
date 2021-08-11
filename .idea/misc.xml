@@ -10,13 +10,17 @@
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/shuffle_white_svg.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout-v21/flashcard.xml" value="0.35964912280701755" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/activity_main.xml" value="0.4925925925925926" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/drop_menu_list.xml" value="0.4666666666666667" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/drop_menu_view.xml" value="0.39035087719298245" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/flashcard.xml" value="0.45185185185185184" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/flashcard_def.xml" value="0.4691358024691358" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/flashcard_front.xml" value="0.4925925925925926" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/flashcard_word.xml" value="0.4925925925925926" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/in_animation.xml" value="0.45185185185185184" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/item_view.xml" value="0.39166666666666666" />
-        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/word_checklist.xml" value="0.4925925925925926" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/word_checklist.xml" value="0.2982456140350877" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher.xml" value="0.3846491228070175" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3846491228070175" />
       </map>
     </option>
   </component>
