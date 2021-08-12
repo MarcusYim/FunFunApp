@@ -25,6 +25,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="1.0" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ListView
@@ -46,17 +47,64 @@
         android:layout_height="match_parent">
 
         <TextView
+            android:id="@+id/checklist_select4"
+            android:layout_width="60dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="Word"
+            android:textColor="@color/brown"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.12"
+            app:layout_constraintStart_toEndOf="@+id/checklist_select"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
+            app:layout_constraintVertical_bias="0.0" />
+
+        <TextView
+            android:id="@+id/checklist_select3"
+            android:layout_width="89dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="Definition"
+            android:textColor="@color/brown"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintStart_toEndOf="@+id/checklist_select2"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+        <TextView
+            android:id="@+id/checklist_select2"
+            android:layout_width="89dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
+            android:text="Pin Yin"
+            android:textColor="@color/brown"
+            android:textSize="15dp"
+            android:textStyle="bold"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.16"
+            app:layout_constraintStart_toEndOf="@+id/checklist_select4"
+            app:layout_constraintTop_toBottomOf="@+id/textInputLayout" />
+
+        <TextView
             android:id="@+id/checklist_select"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginTop="15dp"
+            android:layout_width="70dp"
+            android:layout_height="47dp"
+            android:layout_marginTop="4dp"
+            android:gravity="center"
             android:text="Select"
             android:textColor="@color/brown"
             android:textSize="15dp"
             android:textStyle="bold"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.04"
+            app:layout_constraintHorizontal_bias="0.02"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/textInputLayout"
             app:layout_constraintVertical_bias="0.0" />
@@ -66,8 +114,8 @@
             style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.ExposedDropdownMenu"
             android:layout_width="230dp"
             android:layout_height="wrap_content"
+            android:layout_marginTop="-6dp"
             android:theme="@style/changeBackgroundColor"
-            android:paddingLeft="5dp"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent">
 
@@ -78,8 +126,8 @@
                 android:layout_weight="1"
                 android:inputType="none"
                 android:paddingLeft="10dp"
-                android:textSize="15dp"
-                android:text="Select by lesson name" />
+                android:text="Select by lesson name"
+                android:textSize="15dp" />
         </com.google.android.material.textfield.TextInputLayout>
     </androidx.constraintlayout.widget.ConstraintLayout>
 

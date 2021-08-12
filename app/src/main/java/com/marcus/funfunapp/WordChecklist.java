@@ -20,8 +20,7 @@ import java.util.Arrays;
 public class WordChecklist extends AppCompatActivity
 {
     ListView simpleListView;
-    String[] wordArr;
-    String[] defArr;
+    String[] wordArr, defArr, pinArr;
 
     WordsAdapter wordsAdapter;
 
@@ -31,6 +30,7 @@ public class WordChecklist extends AppCompatActivity
     //defining elements to be displayed
     ArrayList<String> wordList = new ArrayList<String>();
     ArrayList<String> defList = new ArrayList<String>();
+    ArrayList<String> pinList = new ArrayList<String>();
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -39,9 +39,6 @@ public class WordChecklist extends AppCompatActivity
 
         initCustomView();
         initDropdownMenu();
-
-        TextView textView = findViewById(R.id.checklist_select);
-        textView.setBackgroundColor(getResources().getColor(R.color.text_back));
     }
 
     private void initCustomView()
@@ -49,16 +46,18 @@ public class WordChecklist extends AppCompatActivity
         VarHolder var = new VarHolder();
         wordArr = var.getWords();
         defArr = var.getDefs();
+        pinArr = var.getPins();
 
         //change this
         wordList.addAll(Arrays.asList(wordArr));
         defList.addAll(Arrays.asList(defArr));
+        pinList.addAll(Arrays.asList(pinArr));
 
         //identify page to display on
         simpleList = (ListView) findViewById(R.id.simpleListView);
 
         //create and set custom adapter
-        wordsAdapter = new WordsAdapter(this, R.layout.item_view, wordList, defList);
+        wordsAdapter = new WordsAdapter(this, R.layout.item_view, wordList, defList, pinList);
         simpleList.setAdapter(wordsAdapter);
 
         studyButton = findViewById(R.id.study_button);

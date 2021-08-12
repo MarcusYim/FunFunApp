@@ -1,33 +1,31 @@
 package com.marcus.funfunapp;
 
-import android.content.ClipData;
 import android.content.Context;
-import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
-import android.widget.ImageView;
 import android.widget.TextView;
 
 import java.util.ArrayList;
-import java.util.HashMap;
 import java.util.List;
 
 public class WordsAdapter extends ArrayAdapter<String>
 {
     List<String> wordList = new ArrayList<>();
     List<String> defList = new ArrayList<>();
+    List<String> pinList = new ArrayList<>();
     boolean[] checkedHolder;
 
-    public WordsAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects)
+    public WordsAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects)
     {
         super(context, textViewResourceId, wordObjects);
 
         wordList = wordObjects;
         defList = defObjects;
+        pinList = pinObjects;
 
         createCheckedHolder();
     }
@@ -52,6 +50,9 @@ public class WordsAdapter extends ArrayAdapter<String>
 
         TextView defView = (TextView) v.findViewById(R.id.defView);
         defView.setText(defList.get(position));
+
+        TextView pinView = (TextView) v.findViewById(R.id.pinView);
+        pinView.setText(pinList.get(position));
 
         CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
         checkBox.setChecked(checkedHolder[position]);
