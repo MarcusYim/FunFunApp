@@ -2,6 +2,7 @@ package com.marcus.funfunapp;
 
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
+import android.graphics.Color;
 import android.os.Bundle;
 import android.view.View;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.Button;
+import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
 
@@ -25,10 +27,12 @@ public class FlashCard extends AppCompatActivity {
     boolean mIsBackVisible = false;
     View mCardFrontLayout;
     View mCardBackLayout;
-    Button rightButton, leftButton, shuffleButton;
-    TextView back, front;
+    ImageButton rightButton, leftButton;
+    Button shuffleButton;
+    TextView back, front, pin;
     String[] checkedWords;
     String[] checkedDefs;
+    String[] checkedPins;
     int currentNum = 0;
 
     @Override
@@ -64,6 +68,8 @@ public class FlashCard extends AppCompatActivity {
         back = (TextView) findViewById(R.id.flashcard_def);
         back.setText(getCurrentDef());
         mCardBackLayout = findViewById(R.id.card_back);
+        pin = (TextView) findViewById((R.id.flashcard_pin));
+        pin.setText(getCurrentPin());
     }
 
     public void flipCard(View view)
@@ -98,6 +104,7 @@ public class FlashCard extends AppCompatActivity {
                     currentNum++;
                     front.setText(getCurrentWord());
                     back.setText(getCurrentDef());
+                    pin.setText(getCurrentPin());
                 }
             }
         });
@@ -112,6 +119,7 @@ public class FlashCard extends AppCompatActivity {
                     currentNum--;
                     front.setText(getCurrentWord());
                     back.setText(getCurrentDef());
+                    pin.setText(getCurrentPin());
                 }
             }
         });
@@ -123,8 +131,10 @@ public class FlashCard extends AppCompatActivity {
             {
                 randomizeArray(checkedWords);
                 randomizeArray(checkedDefs);
+                randomizeArray(checkedPins);
                 front.setText(getCurrentWord());
                 back.setText(getCurrentDef());
+                pin.setText(getCurrentPin());
             }
         });
     }
@@ -136,16 +146,19 @@ public class FlashCard extends AppCompatActivity {
 
         checkedWords = new String[checkedNums.size()];
         checkedDefs = new String[checkedNums.size()];
+        checkedPins = new String[checkedNums.size()];
 
         VarHolder varHolder = new VarHolder();
         String[] wordList = varHolder.getWords();
         String[] defList = varHolder.getDefs();
+        String[] pinList = varHolder.getPins();
 
         for (int i = 0; i < checkedNums.size(); i++)
         {
             int checkedNum = checkedNums.get(i);
             checkedWords[i] = wordList[checkedNum];
             checkedDefs[i] = defList[checkedNum];
+            checkedPins[i] = pinList[checkedNum];
         }
     }
 
@@ -157,6 +170,11 @@ public class FlashCard extends AppCompatActivity {
     private String getCurrentDef()
     {
         return checkedDefs[currentNum];
+    }
+
+    private String getCurrentPin()
+    {
+        return checkedPins[currentNum];
     }
 
     private String[] randomizeArray(String[] array)
