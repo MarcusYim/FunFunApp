@@ -33,7 +33,7 @@
             android:id="@+id/flashcard_button_left"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_left_icon_50px_thick"
+            android:background="@drawable/ic_left_icon_60px_thick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.1"
@@ -46,14 +46,57 @@
             android:id="@+id/flashcard_button_right"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:background="@drawable/ic_right_icon_50px_thick"
+            android:background="@drawable/ic_right_icon_60px_thick"
             app:layout_constraintBottom_toBottomOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintHorizontal_bias="0.2"
-            app:layout_constraintStart_toEndOf="@+id/flashcard_button_left"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintHorizontal_bias="0.9"
             app:layout_constraintVertical_bias="0.934"
             tools:ignore="SpeakableTextPresentCheck" />
+
+        <ImageView
+            android:id="@+id/flashcard_diagonal"
+            android:layout_width="30dp"
+            android:layout_height="30dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toStartOf="@+id/flashcard_button_right"
+            app:layout_constraintStart_toEndOf="@+id/flashcard_button_left"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.9157"
+            app:srcCompat="@drawable/ic_diagonal_line_13" />
+
+        <TextView
+            android:id="@+id/flashcard_number"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="-10dp"
+            android:layout_marginBottom="-10dp"
+            android:gravity="center"
+            android:textColor="@color/yellow"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toTopOf="@+id/flashcard_diagonal"
+            app:layout_constraintEnd_toStartOf="@+id/flashcard_diagonal"
+            app:layout_constraintHorizontal_bias="1.0"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="1.0" />
+
+        <TextView
+            android:id="@+id/flashcard_total"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="-10dp"
+            android:layout_marginTop="-15dp"
+            android:gravity="center"
+            android:textColor="@color/brown"
+            android:textSize="25dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.0"
+            app:layout_constraintStart_toEndOf="@+id/flashcard_diagonal"
+            app:layout_constraintTop_toBottomOf="@+id/flashcard_diagonal"
+            app:layout_constraintVertical_bias="0.0" />
 
         <Button
             android:id="@+id/flashcard_button_shuffle"
@@ -91,5 +134,6 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             app:layout_constraintVertical_bias="0.3" />
+
     </androidx.constraintlayout.widget.ConstraintLayout>
 </FrameLayout>

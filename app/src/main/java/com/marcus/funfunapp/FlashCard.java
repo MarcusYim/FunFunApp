@@ -29,7 +29,7 @@ public class FlashCard extends AppCompatActivity {
     View mCardBackLayout;
     ImageButton rightButton, leftButton;
     Button shuffleButton;
-    TextView back, front, pin;
+    TextView back, front, pin, curr, total;
     String[] checkedWords;
     String[] checkedDefs;
     String[] checkedPins;
@@ -40,8 +40,8 @@ public class FlashCard extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.flashcard);
         initChecked();
-        findViews();
-        loadAnimations();
+        initViews();
+        initAnimations();
         initButtons();
         changeCameraDistance();
     }
@@ -54,13 +54,13 @@ public class FlashCard extends AppCompatActivity {
         mCardBackLayout.setCameraDistance(scale);
     }
 
-    private void loadAnimations()
+    private void initAnimations()
     {
         mSetRightOut = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.out_animation);
         mSetLeftIn = (AnimatorSet) AnimatorInflater.loadAnimator(this, R.animator.in_animation);
     }
 
-    private void findViews()
+    private void initViews()
     {
         front = (TextView) findViewById(R.id.flashcard_word);
         front.setText(getCurrentWord());
@@ -70,6 +70,10 @@ public class FlashCard extends AppCompatActivity {
         mCardBackLayout = findViewById(R.id.card_back);
         pin = (TextView) findViewById((R.id.flashcard_pin));
         pin.setText(getCurrentPin());
+        curr = (TextView) findViewById(R.id.flashcard_number);
+        curr.setText("1");
+        total = (TextView) findViewById(R.id.flashcard_total);
+        total.setText(getResources().getString(R.string.integer_to_string, checkedWords.length));
     }
 
     public void flipCard(View view)
@@ -105,6 +109,7 @@ public class FlashCard extends AppCompatActivity {
                     front.setText(getCurrentWord());
                     back.setText(getCurrentDef());
                     pin.setText(getCurrentPin());
+                    curr.setText(getResources().getString(R.string.integer_to_string, (currentNum + 1)));
                 }
             }
         });
@@ -120,6 +125,7 @@ public class FlashCard extends AppCompatActivity {
                     front.setText(getCurrentWord());
                     back.setText(getCurrentDef());
                     pin.setText(getCurrentPin());
+                    curr.setText(getResources().getString(R.string.integer_to_string, (currentNum + 1)));
                 }
             }
         });
