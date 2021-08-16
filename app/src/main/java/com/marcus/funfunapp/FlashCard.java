@@ -135,9 +135,7 @@ public class FlashCard extends AppCompatActivity {
         {
             public void onClick(View v)
             {
-                randomizeArray(checkedWords);
-                randomizeArray(checkedDefs);
-                randomizeArray(checkedPins);
+                randomizeArrays(checkedWords, checkedDefs, checkedPins);
                 front.setText(getCurrentWord());
                 back.setText(getCurrentDef());
                 pin.setText(getCurrentPin());
@@ -183,19 +181,25 @@ public class FlashCard extends AppCompatActivity {
         return checkedPins[currentNum];
     }
 
-    private String[] randomizeArray(String[] array)
+    private void randomizeArrays(String[] word, String[] def, String[] pin)
     {
         Random rgen = new Random();
 
-        for (int i = 0; i < array.length; i++)
+        for (int i = 0; i < word.length; i++)
         {
-            int randomPosition = rgen.nextInt(array.length);
-            String temp = array[i];
-            array[i] = array[randomPosition];
-            array[randomPosition] = temp;
-        }
+            int randomPosition = rgen.nextInt(word.length);
+            String temp = word[i];
+            word[i] = word[randomPosition];
+            word[randomPosition] = temp;
 
-        return array;
+            String temp1 = def[i];
+            def[i] = def[randomPosition];
+            def[randomPosition] = temp1;
+
+            String temp2 = pin[i];
+            pin[i] = pin[randomPosition];
+            pin[randomPosition] = temp2;
+        }
     }
 }
 
