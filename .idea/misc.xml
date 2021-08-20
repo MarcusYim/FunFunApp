@@ -32,11 +32,17 @@
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/mipmap-anydpi-v26/ic_launcher_round.xml" value="0.3846491228070175" />
         <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/border.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/circle_button.xml" value="0.23541666666666666" />
+        <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/image_frame.xml" value="0.3880208333333333" />
         <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/level_1_image_background.xml" value="0.23541666666666666" />
         <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/layout-v21/flashcard.xml" value="0.21927083333333333" />
         <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/activity_main.xml" value="0.371875" />
+        <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/drop_menu_view.xml" value="0.3875" />
+        <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/flashcard_word.xml" value="0.371875" />
         <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/item_view.xml" value="0.21927083333333333" />
-        <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/level_view.xml" value="0.371875" />
+        <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/level_select.xml" value="0.371875" />
+        <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/level_view.xml" value="0.3875" />
+        <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/word_checklist.xml" value="0.371875" />
+        <entry key="..\:/Users/marcu/AndroidStudioProjects/FunFunApp/app/src/main/res/mipmap-anydpi-v26/level_1_image_round.xml" value="0.3880208333333333" />
       </map>
     </option>
   </component>
