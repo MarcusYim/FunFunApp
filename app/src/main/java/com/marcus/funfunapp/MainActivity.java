@@ -2,17 +2,27 @@ package com.marcus.funfunapp;
 
 import android.annotation.TargetApi;
 import android.content.Intent;
+import android.content.res.Resources;
+import android.graphics.Bitmap;
+import android.graphics.BitmapFactory;
+import android.graphics.drawable.Drawable;
+import android.net.Uri;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.ImageView;
 import android.widget.Toast;
 
 
 import androidx.appcompat.app.ActionBar;
 import androidx.appcompat.app.AppCompatActivity;
 
+import java.io.File;
+import java.io.FileNotFoundException;
+import java.io.InputStream;
 import java.util.Objects;
 
 public class MainActivity extends AppCompatActivity
@@ -36,7 +46,11 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 //to be replaced
-                tempCheck(v);
+                //tempCheck(v);
+
+                Toast.makeText(MainActivity.this, "You have Authenticated Successfully", Toast.LENGTH_LONG).show();
+                Intent intent = new Intent(v.getContext(), LevelSelect.class);
+                startActivity(intent);
             }
         });
     }

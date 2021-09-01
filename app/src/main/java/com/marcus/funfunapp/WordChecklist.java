@@ -1,19 +1,15 @@
 package com.marcus.funfunapp;
 
 import android.content.Intent;
-import android.graphics.Color;
 import android.os.Bundle;
-import android.util.Log;
 import android.view.View;
 import android.widget.ArrayAdapter;
 import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ListView;
-import android.widget.TextView;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 
@@ -54,7 +50,7 @@ public class WordChecklist extends AppCompatActivity
         pinList.addAll(Arrays.asList(pinArr));
 
         //identify page to display on
-        simpleList = (ListView) findViewById(R.id.simpleListView);
+        simpleList = (ListView) findViewById(R.id.simple_list_view);
 
         //create and set custom adapter
         wordsAdapter = new WordsAdapter(this, R.layout.item_view, wordList, defList, pinList);

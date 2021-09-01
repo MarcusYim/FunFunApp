@@ -29,7 +29,7 @@
     </androidx.constraintlayout.widget.ConstraintLayout>
 
         <ListView
-            android:id="@+id/simpleListView"
+            android:id="@+id/simple_list_view"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:divider="@color/grey_dark"

@@ -5,16 +5,16 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".MainActivity">
+    tools:context=".LevelSelect">
 
     <ListView
-        android:id="@+id/simpleListView"
+        android:id="@+id/level_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
+        android:background="@drawable/border"
         android:dividerHeight="0dp"
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"
-        android:background="@drawable/border"
         app:layout_constraintTop_toTopOf="parent">
 
     </ListView>
