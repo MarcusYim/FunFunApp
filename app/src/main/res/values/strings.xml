@@ -4,17 +4,5 @@
     <string name="username">Username</string>
     <string name="login">Login</string>
 
-    <string-array name="level1">
-        <item>All</item>
-        <item>Lesson 1 Dialogue 1</item>
-        <item>Lesson 1 Dialogue 2</item>
-        <item>Lesson 2 Dialogue 1</item>
-        <item>Lesson 2 Dialogue 2</item>
-        <item>Lesson 3 Dialogue 1</item>
-        <item>Lesson 3 Dialogue 2</item>
-        <item>Lesson 4 Dialogue 1</item>
-        <item>Lesson 4 Dialogue 2</item>
-    </string-array>
-
     <string name="integer_to_string">%1$d</string>
 </resources>

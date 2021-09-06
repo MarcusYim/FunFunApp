@@ -64,18 +64,5 @@ public class LevelSelect extends AppCompatActivity
         //create and set custom adapter
         levelAdapter = new LevelAdapter(this, R.layout.item_view, imageList, nameList, drawableList);
         levelSelect.setAdapter(levelAdapter);
-
-        /*
-        levelButton = findViewById(R.id.level_button);
-
-        levelButton.setOnClickListener(new View.OnClickListener()
-        {
-            public void onClick(View v)
-            {
-
-            }
-        });
-
-         */
     }
 }

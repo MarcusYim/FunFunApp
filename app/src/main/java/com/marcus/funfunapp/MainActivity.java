@@ -46,11 +46,7 @@ public class MainActivity extends AppCompatActivity
             public void onClick(View v)
             {
                 //to be replaced
-                //tempCheck(v);
-
-                Toast.makeText(MainActivity.this, "You have Authenticated Successfully", Toast.LENGTH_LONG).show();
-                Intent intent = new Intent(v.getContext(), LevelSelect.class);
-                startActivity(intent);
+                tempCheck(v);
             }
         });
     }
@@ -63,10 +59,9 @@ public class MainActivity extends AppCompatActivity
         if (Objects.equals(username.getText().toString(), "admin") && Objects.equals(password.getText().toString(),"admin"))
         {
             Toast.makeText(MainActivity.this, "You have Authenticated Successfully", Toast.LENGTH_LONG).show();
-            Intent intent = new Intent(v.getContext(), WordChecklist.class);
+            Intent intent = new Intent(v.getContext(), LevelSelect.class);
             startActivity(intent);
         }
-
         else
         {
             Toast.makeText(MainActivity.this, "Authentication Failed", Toast.LENGTH_LONG).show();
