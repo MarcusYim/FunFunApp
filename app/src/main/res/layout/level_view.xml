@@ -7,11 +7,9 @@
 
     <ImageView
         android:id="@+id/level_image"
-        android:layout_width="269dp"
-        android:layout_height="155dp"
-        android:layout_marginStart="5dp"
+        android:layout_width="248dp"
+        android:layout_height="143dp"
 
-        android:layout_marginTop="5dp"
         android:background="@drawable/image_frame"
         android:paddingTop="5dp"
         android:paddingBottom="5dp"

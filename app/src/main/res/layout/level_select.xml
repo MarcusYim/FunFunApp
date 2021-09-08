@@ -11,11 +11,12 @@
         android:id="@+id/level_list_view"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:background="@drawable/border"
+        android:background="@drawable/level_border"
+        android:divider="@color/white"
         android:dividerHeight="30dp"
         android:footerDividersEnabled="true"
         android:headerDividersEnabled="true"
-        android:divider="@color/white"
+        android:gravity="center"
         app:layout_constraintTop_toTopOf="parent">
 
     </ListView>

@@ -42,8 +42,12 @@ public class WordChecklist extends AppCompatActivity
     ArrayList<String> pinList = new ArrayList<String>();
 
     List<String> allWordsList = new ArrayList<>();
+    List<String> allEnglishList = new ArrayList<>();
+    List<String> allPinList = new ArrayList<>();
 
     List<String>[] allWords;
+    List<String>[] allEnglish;
+    List<String>[] allPin;
 
     int startDialogue;
     int endDialogue;
@@ -72,18 +76,14 @@ public class WordChecklist extends AppCompatActivity
     private void initCustomView()
     {
         VarHolder var = new VarHolder();
-        defArr = var.getDefs();
         pinArr = var.getPins();
 
-        //change this
-        defList.addAll(Arrays.asList(defArr));
         pinList.addAll(Arrays.asList(pinArr));
-
         //identify page to display on
         simpleList = (ListView) findViewById(R.id.simple_list_view);
 
         //create and set custom adapter
-        wordsAdapter = new WordsAdapter(this, R.layout.item_view, allWordsList, defList, pinList);
+        wordsAdapter = new WordsAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList);
         simpleList.setAdapter(wordsAdapter);
 
         studyButton = findViewById(R.id.study_button);
@@ -92,6 +92,10 @@ public class WordChecklist extends AppCompatActivity
         {
             public void onClick(View v)
             {
+                //Toast.makeText(WordChecklist.this, "" + cool, Toast.LENGTH_SHORT).show();
+
+                //Toast.makeText(WordChecklist.this, allEnglish[0].get(2), Toast.LENGTH_SHORT).show();
+
                 ArrayList<Integer> temp = getChecked();
                 Intent intent = new Intent(v.getContext(), FlashCard.class);
                 intent.putExtra("checked", temp);
@@ -118,20 +122,65 @@ public class WordChecklist extends AppCompatActivity
     {
         allWords = new List[endDialogue - startDialogue];
 
+        int count = 0;
         for (int i = startDialogue; i < endDialogue; i++)
         {
             try
             {
-                String uri = "@raw/dialogue_" + i + "_words_test";
-                int imageResource = getResources().getIdentifier(uri, null, getPackageName());
-                CSVReader reader = new CSVReader(new InputStreamReader(getResources().openRawResource(imageResource)));
-                allWords[i] = Arrays.asList(reader.readNext());
+                String uri = "@raw/dialogue_" + i + "_chinese";
+                int csvResource = getResources().getIdentifier(uri, null, getPackageName());
+                CSVReader reader = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResource)));
+                allWords[count] = Arrays.asList(reader.readNext());
             }
             catch (Exception e)
             {
                 e.printStackTrace();
-                Toast.makeText(this, "The specified file was not found", Toast.LENGTH_SHORT).show();
+                Toast.makeText(this, "Error in file reading", Toast.LENGTH_SHORT).show();
             }
+
+            count++;
+        }
+
+        allEnglish = new List[endDialogue - startDialogue];
+
+        count = 0;
+        for (int i = startDialogue; i < endDialogue; i++)
+        {
+            try
+            {
+                String uri = "@raw/dialogue_" + i + "_english";
+                int csvResource = getResources().getIdentifier(uri, null, getPackageName());
+                CSVReader reader = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResource)));
+                allEnglish[count] = Arrays.asList(reader.readNext());
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                Toast.makeText(this, "Error in file reading", Toast.LENGTH_SHORT).show();
+            }
+
+            count++;
+        }
+
+        allPin = new List[endDialogue - startDialogue];
+
+        count = 0;
+        for (int i = startDialogue; i < endDialogue; i++)
+        {
+            try
+            {
+                String uri = "@raw/dialogue_" + i + "_pin";
+                int csvResource = getResources().getIdentifier(uri, null, getPackageName());
+                CSVReader reader = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResource)));
+                allPin[count] = Arrays.asList(reader.readNext());
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                Toast.makeText(this, "Error in file reading", Toast.LENGTH_SHORT).show();
+            }
+
+            count++;
         }
     }
 
@@ -152,10 +201,18 @@ public class WordChecklist extends AppCompatActivity
 
     private void swapList(int position)
     {
-        simpleList = (ListView) findViewById(R.id.simple_list_view);
-
-        wordsAdapter = new WordsAdapter(this, R.layout.item_view, allWords[position], defList, pinList);
-        simpleList.setAdapter(wordsAdapter);
+        if (position == 0)
+        {
+            simpleList = (ListView) findViewById(R.id.simple_list_view);
+            wordsAdapter = new WordsAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList);
+            simpleList.setAdapter(wordsAdapter);
+        }
+        else
+        {
+            simpleList = (ListView) findViewById(R.id.simple_list_view);
+            wordsAdapter = new WordsAdapter(this, R.layout.item_view, allWords[position - 1], allEnglish[position - 1], allPin[position - 1]);
+            simpleList.setAdapter(wordsAdapter);
+        }
     }
 
     private void combineAllWords()
@@ -163,6 +220,16 @@ public class WordChecklist extends AppCompatActivity
         for (List<String> list : allWords)
         {
             allWordsList.addAll(list);
+        }
+
+        for (List<String> list : allEnglish)
+        {
+            allEnglishList.addAll(list);
+        }
+
+        for (List<String> list : allPin)
+        {
+            allPinList.addAll(list);
         }
     }
 }

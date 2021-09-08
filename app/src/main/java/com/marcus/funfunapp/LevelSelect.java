@@ -57,7 +57,6 @@ public class LevelSelect extends AppCompatActivity
         imageList.addAll(Arrays.asList(imageArr));
         nameList.addAll(Arrays.asList(nameArr));
 
-
         //identify page to display on
         levelSelect = (ListView) findViewById(R.id.level_list_view);
 

@@ -53,8 +53,38 @@ public class LevelAdapter extends ArrayAdapter<String>
     public View getView(int position, View convertView, ViewGroup parent)
     {
         View v = convertView;
-        ViewHolder holder;
+        /*
+        LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+        v = inflater.inflate(R.layout.level_view, null);
 
+
+        Button levelButton = (Button) v.findViewById(R.id.level_button);
+        TextView levelText = (TextView) v.findViewById(R.id.level_text);
+        ImageView levelImage = (ImageView) v.findViewById(R.id.level_image);
+
+        levelText.setText(nameList.get(position));
+        levelImage.setImageDrawable(drawableList.get(position));
+
+        levelButton.setOnClickListener(new View.OnClickListener()
+        {
+            @Override
+            public void onClick(View v)
+            {
+                //int previous = varHolder.getNumPreviousDialogues(position);
+                //int curr = varHolder.getDialoguesPerLevel(position);
+
+                Intent intent = new Intent(mContext, WordChecklist.class);
+                //intent.putExtra("start", previous);
+                //intent.putExtra("end", previous + curr);
+                //intent.putExtra("dialogues", varHolder.getSubDialogueArray(previous, previous + curr));
+
+                mContext.startActivity(intent);
+            }
+        });
+
+         */
+
+        ViewHolder holder;
         if (v == null)
         {
             LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -85,7 +115,7 @@ public class LevelAdapter extends ArrayAdapter<String>
                 int previous = varHolder.getNumPreviousDialogues(position);
                 int curr = varHolder.getDialoguesPerLevel(position);
 
-                Intent intent = new Intent(v.getContext(), WordChecklist.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
+                Intent intent = new Intent(v.getContext(), WordChecklist.class);
                 intent.putExtra("start", previous);
                 intent.putExtra("end", previous + curr);
                 intent.putExtra("dialogues", varHolder.getSubDialogueArray(previous, previous + curr));

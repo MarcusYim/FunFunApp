@@ -55,7 +55,12 @@ public class MainActivity extends AppCompatActivity
     @TargetApi(23)
     public void tempCheck(View v)
     {
+        Toast.makeText(MainActivity.this, "You have Authenticated Successfully", Toast.LENGTH_LONG).show();
+        Intent intent = new Intent(v.getContext(), LevelSelect.class);
+        startActivity(intent);
+
         //checks credentials
+        /*
         if (Objects.equals(username.getText().toString(), "admin") && Objects.equals(password.getText().toString(),"admin"))
         {
             Toast.makeText(MainActivity.this, "You have Authenticated Successfully", Toast.LENGTH_LONG).show();
@@ -66,6 +71,8 @@ public class MainActivity extends AppCompatActivity
         {
             Toast.makeText(MainActivity.this, "Authentication Failed", Toast.LENGTH_LONG).show();
         }
+
+         */
     }
 
 
