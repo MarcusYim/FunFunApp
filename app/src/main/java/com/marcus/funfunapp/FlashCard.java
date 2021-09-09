@@ -13,11 +13,17 @@ import android.widget.Button;
 import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
+import com.opencsv.CSVReader;
+
+import java.io.InputStreamReader;
 import java.lang.reflect.Array;
 import java.util.ArrayList;
+import java.util.Arrays;
+import java.util.List;
 import java.util.Random;
 
 public class FlashCard extends AppCompatActivity {
@@ -35,10 +41,30 @@ public class FlashCard extends AppCompatActivity {
     String[] checkedPins;
     int currentNum = 0;
 
+    int endDialogue;
+    int startDialogue;
+    ArrayList<Integer> checkedNums;
+
+    List<String>[] allWords;
+    List<String>[] allEnglish;
+    List<String>[] allPin;
+
+    List<String> allWordsList = new ArrayList<>();
+    List<String> allEnglishList = new ArrayList<>();
+    List<String> allPinList = new ArrayList<>();
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.flashcard);
+
+        Bundle extras = getIntent().getExtras();
+        startDialogue = extras.getInt("start");
+        endDialogue = extras.getInt("end");
+        checkedNums = extras.getIntegerArrayList("checked");
+
+        parseCsv();
+        combineAllWords();
         initChecked();
         initViews();
         initAnimations();
@@ -146,23 +172,71 @@ public class FlashCard extends AppCompatActivity {
     private void initChecked()
     {
         Intent intent = getIntent();
-        ArrayList<Integer> checkedNums = intent.getIntegerArrayListExtra("checked");
 
         checkedWords = new String[checkedNums.size()];
         checkedDefs = new String[checkedNums.size()];
         checkedPins = new String[checkedNums.size()];
 
-        VarHolder varHolder = new VarHolder();
-        String[] wordList = varHolder.getWords();
-        String[] defList = varHolder.getDefs();
-        String[] pinList = varHolder.getPins();
-
         for (int i = 0; i < checkedNums.size(); i++)
         {
             int checkedNum = checkedNums.get(i);
-            checkedWords[i] = wordList[checkedNum];
-            checkedDefs[i] = defList[checkedNum];
-            checkedPins[i] = pinList[checkedNum];
+            checkedWords[i] = allWordsList.get(checkedNum);
+            checkedDefs[i] = allEnglishList.get(checkedNum);
+            checkedPins[i] = allPinList.get(checkedNum);
+        }
+    }
+
+    private void parseCsv()
+    {
+        allWords = new List[endDialogue - startDialogue];
+        allEnglish = new List[endDialogue - startDialogue];
+        allPin = new List[endDialogue - startDialogue];
+
+        int count = 0;
+        for (int i = startDialogue; i < endDialogue; i++)
+        {
+            try
+            {
+                String uriC = "@raw/dialogue_" + i + "_chinese";
+                int csvResourceC = getResources().getIdentifier(uriC, null, getPackageName());
+                CSVReader readerC = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceC)));
+                allWords[count] = Arrays.asList(readerC.readNext());
+
+                String uriE = "@raw/dialogue_" + i + "_english";
+                int csvResourceE = getResources().getIdentifier(uriE, null, getPackageName());
+                CSVReader readerE = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceE)));
+                allEnglish[count] = Arrays.asList(readerE.readNext());
+
+                String uriP = "@raw/dialogue_" + i + "_pin";
+                int csvResourceP = getResources().getIdentifier(uriP, null, getPackageName());
+                CSVReader readerP = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceP)));
+                allPin[count] = Arrays.asList(readerP.readNext());
+            }
+            catch (Exception e)
+            {
+                e.printStackTrace();
+                Toast.makeText(this, "Error in file reading", Toast.LENGTH_SHORT).show();
+            }
+
+            count++;
+        }
+    }
+
+    private void combineAllWords()
+    {
+        for (List<String> list : allWords)
+        {
+            allWordsList.addAll(list);
+        }
+
+        for (List<String> list : allEnglish)
+        {
+            allEnglishList.addAll(list);
+        }
+
+        for (List<String> list : allPin)
+        {
+            allPinList.addAll(list);
         }
     }
 

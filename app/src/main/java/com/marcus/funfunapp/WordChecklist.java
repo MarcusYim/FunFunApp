@@ -99,6 +99,8 @@ public class WordChecklist extends AppCompatActivity
                 ArrayList<Integer> temp = getChecked();
                 Intent intent = new Intent(v.getContext(), FlashCard.class);
                 intent.putExtra("checked", temp);
+                intent.putExtra("end", endDialogue);
+                intent.putExtra("start", startDialogue);
                 startActivity(intent);
             }
         });
@@ -121,58 +123,28 @@ public class WordChecklist extends AppCompatActivity
     private void parseCsv()
     {
         allWords = new List[endDialogue - startDialogue];
+        allEnglish = new List[endDialogue - startDialogue];
+        allPin = new List[endDialogue - startDialogue];
 
         int count = 0;
         for (int i = startDialogue; i < endDialogue; i++)
         {
             try
             {
-                String uri = "@raw/dialogue_" + i + "_chinese";
-                int csvResource = getResources().getIdentifier(uri, null, getPackageName());
-                CSVReader reader = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResource)));
-                allWords[count] = Arrays.asList(reader.readNext());
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                Toast.makeText(this, "Error in file reading", Toast.LENGTH_SHORT).show();
-            }
+                String uriC = "@raw/dialogue_" + i + "_chinese";
+                int csvResourceC = getResources().getIdentifier(uriC, null, getPackageName());
+                CSVReader readerC = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceC)));
+                allWords[count] = Arrays.asList(readerC.readNext());
 
-            count++;
-        }
+                String uriE = "@raw/dialogue_" + i + "_english";
+                int csvResourceE = getResources().getIdentifier(uriE, null, getPackageName());
+                CSVReader readerE = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceE)));
+                allEnglish[count] = Arrays.asList(readerE.readNext());
 
-        allEnglish = new List[endDialogue - startDialogue];
-
-        count = 0;
-        for (int i = startDialogue; i < endDialogue; i++)
-        {
-            try
-            {
-                String uri = "@raw/dialogue_" + i + "_english";
-                int csvResource = getResources().getIdentifier(uri, null, getPackageName());
-                CSVReader reader = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResource)));
-                allEnglish[count] = Arrays.asList(reader.readNext());
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                Toast.makeText(this, "Error in file reading", Toast.LENGTH_SHORT).show();
-            }
-
-            count++;
-        }
-
-        allPin = new List[endDialogue - startDialogue];
-
-        count = 0;
-        for (int i = startDialogue; i < endDialogue; i++)
-        {
-            try
-            {
-                String uri = "@raw/dialogue_" + i + "_pin";
-                int csvResource = getResources().getIdentifier(uri, null, getPackageName());
-                CSVReader reader = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResource)));
-                allPin[count] = Arrays.asList(reader.readNext());
+                String uriP = "@raw/dialogue_" + i + "_pin";
+                int csvResourceP = getResources().getIdentifier(uriP, null, getPackageName());
+                CSVReader readerP = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceP)));
+                allPin[count] = Arrays.asList(readerP.readNext());
             }
             catch (Exception e)
             {
