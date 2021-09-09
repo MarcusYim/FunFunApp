@@ -49,6 +49,8 @@ public class WordChecklist extends AppCompatActivity
     List<String>[] allEnglish;
     List<String>[] allPin;
 
+    ArrayList<WordsAdapter> adapters;
+
     int startDialogue;
     int endDialogue;
     String[] dialogueNames;
@@ -70,7 +72,20 @@ public class WordChecklist extends AppCompatActivity
         parseCsv();
         combineAllWords();
         initDropdownMenu();
+        initAdapters();
         initCustomView();
+    }
+
+    private void initAdapters()
+    {
+        adapters = new ArrayList<>();
+
+        adapters.add(new WordsAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList));
+
+        for (int i = 0; i < dialogueNames.length - 1; i++)
+        {
+            adapters.add(new WordsAdapter(this, R.layout.item_view, allWords[i], allEnglish[i], allPin[i]));
+        }
     }
 
     private void initCustomView()
@@ -82,9 +97,7 @@ public class WordChecklist extends AppCompatActivity
         //identify page to display on
         simpleList = (ListView) findViewById(R.id.simple_list_view);
 
-        //create and set custom adapter
-        wordsAdapter = new WordsAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList);
-        simpleList.setAdapter(wordsAdapter);
+        simpleList.setAdapter(adapters.get(0));
 
         studyButton = findViewById(R.id.study_button);
 
@@ -176,14 +189,12 @@ public class WordChecklist extends AppCompatActivity
         if (position == 0)
         {
             simpleList = (ListView) findViewById(R.id.simple_list_view);
-            wordsAdapter = new WordsAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList);
-            simpleList.setAdapter(wordsAdapter);
+            simpleList.setAdapter(adapters.get(0));
         }
         else
         {
             simpleList = (ListView) findViewById(R.id.simple_list_view);
-            wordsAdapter = new WordsAdapter(this, R.layout.item_view, allWords[position - 1], allEnglish[position - 1], allPin[position - 1]);
-            simpleList.setAdapter(wordsAdapter);
+            simpleList.setAdapter(adapters.get(position));
         }
     }
 
