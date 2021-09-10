@@ -79,13 +79,17 @@ public class WordChecklist extends AppCompatActivity
     private void initAdapters()
     {
         adapters = new ArrayList<>();
+        boolean checkedBoxes[][] = new boolean[dialogueNames.length][];
 
-        adapters.add(new WordsAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList));
 
         for (int i = 0; i < dialogueNames.length - 1; i++)
         {
-            adapters.add(new WordsAdapter(this, R.layout.item_view, allWords[i], allEnglish[i], allPin[i]));
+            WordsAdapter wordsAdapter = new WordsAdapter(this, R.layout.item_view, allWords[i], allEnglish[i], allPin[i]);
+            adapters.add(wordsAdapter);
+            checkedBoxes[i] = wordsAdapter.getCheckedArray();
         }
+
+        adapters.add(new WordsAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList, checkedBoxes));
     }
 
     private void initCustomView()
@@ -97,7 +101,7 @@ public class WordChecklist extends AppCompatActivity
         //identify page to display on
         simpleList = (ListView) findViewById(R.id.simple_list_view);
 
-        simpleList.setAdapter(adapters.get(0));
+        simpleList.setAdapter(adapters.get(adapters.size() - 1));
 
         studyButton = findViewById(R.id.study_button);
 
@@ -189,12 +193,12 @@ public class WordChecklist extends AppCompatActivity
         if (position == 0)
         {
             simpleList = (ListView) findViewById(R.id.simple_list_view);
-            simpleList.setAdapter(adapters.get(0));
+            simpleList.setAdapter(adapters.get(adapters.size() - 1));
         }
         else
         {
             simpleList = (ListView) findViewById(R.id.simple_list_view);
-            simpleList.setAdapter(adapters.get(position));
+            simpleList.setAdapter(adapters.get(position - 1));
         }
     }
 

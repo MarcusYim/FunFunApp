@@ -1,6 +1,7 @@
 package com.marcus.funfunapp;
 
 import android.content.Context;
+import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -18,6 +19,11 @@ public class WordsAdapter extends ArrayAdapter<String>
     List<String> defList = new ArrayList<>();
     List<String> pinList = new ArrayList<>();
     boolean[] checkedHolder;
+    boolean[][] checkedBoxes;
+
+    int curr;
+    int count = 0;
+    int leftover = 0;
 
     public WordsAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects)
     {
@@ -26,6 +32,18 @@ public class WordsAdapter extends ArrayAdapter<String>
         wordList = wordObjects;
         defList = defObjects;
         pinList = pinObjects;
+
+        createCheckedHolder();
+    }
+
+    public WordsAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects, boolean[][] checkedObjects)
+    {
+        super(context, textViewResourceId, wordObjects);
+
+        wordList = wordObjects;
+        defList = defObjects;
+        pinList = pinObjects;
+        checkedBoxes = checkedObjects;
 
         createCheckedHolder();
     }
@@ -55,14 +73,59 @@ public class WordsAdapter extends ArrayAdapter<String>
         pinView.setText(pinList.get(position));
 
         CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
-        checkBox.setChecked(checkedHolder[position]);
+
+        curr = position;
+        count = 0;
+        leftover = 0;
+
+        if (checkedBoxes == null)
+        {
+            checkBox.setChecked(checkedHolder[position]);
+        }
+        else
+        {
+            int subtractor = checkedBoxes[0].length;
+
+            while (curr - subtractor >= 0)
+            {
+                curr -= subtractor;
+                count++;
+                subtractor = checkedBoxes[count].length;
+            }
+
+            leftover = curr;
+
+            checkBox.setChecked(checkedBoxes[count][leftover]);
+        }
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
         {
             @Override
             public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
             {
-                checkedHolder[position] = isChecked;
+                if (checkedBoxes == null)
+                {
+                    checkedHolder[position] = isChecked;
+                }
+                else
+                {
+                    curr = position;
+                    count = 0;
+                    leftover = 0;
+
+                    int subtractor = checkedBoxes[0].length;
+
+                    while (curr - subtractor >= 0)
+                    {
+                        curr -= subtractor;
+                        count++;
+                        subtractor = checkedBoxes[count].length;
+                    }
+
+                    leftover = curr;
+
+                    checkedBoxes[count][leftover] = isChecked;
+                }
             }
         });
 
@@ -75,8 +138,13 @@ public class WordsAdapter extends ArrayAdapter<String>
 
         for (int i = 0; i < getCount(); i++)
         {
-            checkedHolder[i] = true;
+            checkedHolder[i] = false;
         }
+    }
+
+    public boolean[] getCheckedArray()
+    {
+        return checkedHolder;
     }
 
     public ArrayList<Integer> getChecked()
