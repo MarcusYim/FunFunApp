@@ -9,11 +9,13 @@ import android.widget.ArrayAdapter;
 import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
-public class WordsAdapter extends ArrayAdapter<String>
+public class WordAdapter extends ArrayAdapter<String>
 {
     List<String> wordList = new ArrayList<>();
     List<String> defList = new ArrayList<>();
@@ -25,7 +27,7 @@ public class WordsAdapter extends ArrayAdapter<String>
     int count = 0;
     int leftover = 0;
 
-    public WordsAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects)
+    public WordAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects)
     {
         super(context, textViewResourceId, wordObjects);
 
@@ -36,7 +38,7 @@ public class WordsAdapter extends ArrayAdapter<String>
         createCheckedHolder();
     }
 
-    public WordsAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects, boolean[][] checkedObjects)
+    public WordAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects, boolean[][] checkedObjects)
     {
         super(context, textViewResourceId, wordObjects);
 
@@ -51,12 +53,20 @@ public class WordsAdapter extends ArrayAdapter<String>
     @Override
     public int getCount()
     {
-        return wordList.size();
+        return wordList.size() + 1;
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
+        if (position >= wordList.size())
+        {
+            View v = convertView;
+            LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
+            v = inflater.inflate(R.layout.item_view, null);
+            return v;
+        }
+
         //create inflater
         View v = convertView;
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
@@ -160,5 +170,37 @@ public class WordsAdapter extends ArrayAdapter<String>
         }
 
         return ret;
+    }
+
+    public void checkAll()
+    {
+        if (checkedBoxes == null)
+        {
+            Arrays.fill(checkedHolder, true);
+        }
+        else
+        {
+            for (int i = 0; i < checkedBoxes.length; i++)
+            {
+                Log.d("TAG", "" + i + " " + checkedBoxes[i]);
+                Arrays.fill(checkedBoxes[i], true);
+            }
+        }
+    }
+
+    public void uncheckAll()
+    {
+        if (checkedBoxes == null)
+        {
+            Arrays.fill(checkedHolder, false);
+        }
+        else
+        {
+            for (int i = 0; i < checkedBoxes.length; i++)
+            {
+                Log.d("TAG", "" + i + " " + checkedBoxes[i]);
+                Arrays.fill(checkedBoxes[i], false);
+            }
+        }
     }
 }
