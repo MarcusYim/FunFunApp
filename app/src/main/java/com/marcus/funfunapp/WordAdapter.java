@@ -21,13 +21,21 @@ public class WordAdapter extends ArrayAdapter<String>
     List<String> defList = new ArrayList<>();
     List<String> pinList = new ArrayList<>();
     boolean[] checkedHolder;
+    boolean[] starHolder;
     boolean[][] checkedBoxes;
+    boolean[][] starBoxes;
 
     int curr;
     int count = 0;
     int leftover = 0;
 
-    public WordAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects)
+    int currStar;
+    int countStar = 0;
+    int leftoverStar = 0;
+
+    int previousDialogueNum;
+
+    public WordAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects, int numObject)
     {
         super(context, textViewResourceId, wordObjects);
 
@@ -35,10 +43,12 @@ public class WordAdapter extends ArrayAdapter<String>
         defList = defObjects;
         pinList = pinObjects;
 
+        previousDialogueNum = numObject;
+
         createCheckedHolder();
     }
 
-    public WordAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects, boolean[][] checkedObjects)
+    public WordAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects, boolean[][] checkedObjects, boolean[][] starObjects)
     {
         super(context, textViewResourceId, wordObjects);
 
@@ -46,6 +56,7 @@ public class WordAdapter extends ArrayAdapter<String>
         defList = defObjects;
         pinList = pinObjects;
         checkedBoxes = checkedObjects;
+        starBoxes = starObjects;
 
         createCheckedHolder();
     }
@@ -53,12 +64,13 @@ public class WordAdapter extends ArrayAdapter<String>
     @Override
     public int getCount()
     {
-        return wordList.size() + 1;
+        return wordList.size();
     }
 
     @Override
     public View getView(int position, View convertView, ViewGroup parent)
     {
+        /*
         if (position >= wordList.size())
         {
             View v = convertView;
@@ -66,6 +78,8 @@ public class WordAdapter extends ArrayAdapter<String>
             v = inflater.inflate(R.layout.item_view, null);
             return v;
         }
+
+         */
 
         //create inflater
         View v = convertView;
@@ -83,6 +97,8 @@ public class WordAdapter extends ArrayAdapter<String>
         pinView.setText(pinList.get(position));
 
         CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
+
+        CheckBox starBox = (CheckBox) v.findViewById(R.id.star_box);
 
         curr = position;
         count = 0;
@@ -106,6 +122,30 @@ public class WordAdapter extends ArrayAdapter<String>
             leftover = curr;
 
             checkBox.setChecked(checkedBoxes[count][leftover]);
+        }
+
+        currStar = position;
+        countStar = 0;
+        leftoverStar = 0;
+
+        if (starBoxes == null)
+        {
+            starBox.setChecked(starHolder[position]);
+        }
+        else
+        {
+            int subtractorStar = starBoxes[0].length;
+
+            while (currStar - subtractorStar >= 0)
+            {
+                currStar -= subtractorStar;
+                countStar++;
+                subtractorStar = starBoxes[countStar].length;
+            }
+
+            leftoverStar = currStar;
+
+            starBox.setChecked(starBoxes[countStar][leftoverStar]);
         }
 
         checkBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
@@ -139,6 +179,37 @@ public class WordAdapter extends ArrayAdapter<String>
             }
         });
 
+        starBox.setOnCheckedChangeListener(new CompoundButton.OnCheckedChangeListener()
+        {
+            @Override
+            public void onCheckedChanged(CompoundButton buttonView, boolean isChecked)
+            {
+                if (starBoxes == null)
+                {
+                    starHolder[position] = isChecked;
+                }
+                else
+                {
+                    currStar = position;
+                    countStar = 0;
+                    leftoverStar = 0;
+
+                    int subtractorStar = starBoxes[0].length;
+
+                    while (currStar - subtractorStar >= 0)
+                    {
+                        currStar -= subtractorStar;
+                        countStar++;
+                        subtractorStar = starBoxes[countStar].length;
+                    }
+
+                    leftoverStar = currStar;
+
+                    starBoxes[countStar][leftoverStar] = isChecked;
+                }
+            }
+        });
+
         return v;
     }
 
@@ -150,6 +221,13 @@ public class WordAdapter extends ArrayAdapter<String>
         {
             checkedHolder[i] = false;
         }
+
+        starHolder = new boolean[getCount()];
+
+        for (int i = 0; i < getCount(); i++)
+        {
+            starHolder[i] = false;
+        }
     }
 
     public boolean[] getCheckedArray()
@@ -157,15 +235,75 @@ public class WordAdapter extends ArrayAdapter<String>
         return checkedHolder;
     }
 
+    public boolean[] getStarArray()
+    {
+        return starHolder;
+    }
+
     public ArrayList<Integer> getChecked()
     {
         ArrayList<Integer> ret = new ArrayList<Integer>();
 
-        for (int i = 0; i < checkedHolder.length; i++)
+        if (checkedBoxes == null)
         {
-            if (checkedHolder[i])
+            for (int i = 0; i < checkedHolder.length; i++)
             {
-                ret.add(i);
+                if (checkedHolder[i])
+                {
+                    ret.add(previousDialogueNum + i);
+                }
+            }
+        }
+        else
+        {
+            int count = 0;
+            for (int i = 0; i < checkedBoxes.length; i++)
+            {
+                for (int x = 0; x < checkedBoxes[i].length; x++)
+                {
+                    if (checkedBoxes[i][x])
+                    {
+                        ret.add(count);
+                    }
+
+                    count++;
+                }
+            }
+        }
+
+        return ret;
+    }
+
+    public ArrayList<Integer> getStarChecked()
+    {
+        ArrayList<Integer> ret = new ArrayList<Integer>();
+
+        if (starBoxes == null)
+        {
+            for (int i = 0; i < starHolder.length; i++)
+            {
+                if (starHolder[i])
+                {
+                    ret.add(previousDialogueNum + i);
+                }
+            }
+        }
+        else
+        {
+            int countStar = 0;
+            for (int i = 0; i < starBoxes.length; i++)
+            {
+                for (int x = 0; x < starBoxes[i].length; x++)
+                {
+                    if (starBoxes[i][x])
+                    {
+                        ret.add(countStar);
+                    }
+
+                    countStar++;
+                }
+
+                countStar--;
             }
         }
 
@@ -182,8 +320,22 @@ public class WordAdapter extends ArrayAdapter<String>
         {
             for (int i = 0; i < checkedBoxes.length; i++)
             {
-                Log.d("TAG", "" + i + " " + checkedBoxes[i]);
                 Arrays.fill(checkedBoxes[i], true);
+            }
+        }
+    }
+
+    public void checkAllStar()
+    {
+        if (starBoxes == null)
+        {
+            Arrays.fill(starHolder, true);
+        }
+        else
+        {
+            for (int i = 0; i < starBoxes.length; i++)
+            {
+                Arrays.fill(starBoxes[i], true);
             }
         }
     }
@@ -200,6 +352,21 @@ public class WordAdapter extends ArrayAdapter<String>
             {
                 Log.d("TAG", "" + i + " " + checkedBoxes[i]);
                 Arrays.fill(checkedBoxes[i], false);
+            }
+        }
+    }
+
+    public void uncheckAllStar()
+    {
+        if (starBoxes == null)
+        {
+            Arrays.fill(starHolder, true);
+        }
+        else
+        {
+            for (int i = 0; i < starBoxes.length; i++)
+            {
+                Arrays.fill(starBoxes[i], false);
             }
         }
     }

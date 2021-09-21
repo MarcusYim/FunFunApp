@@ -3,7 +3,9 @@ package com.marcus.funfunapp;
 import android.animation.AnimatorInflater;
 import android.animation.AnimatorSet;
 import android.graphics.Color;
+import android.media.MediaPlayer;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.content.Intent;
 import android.os.Bundle;
@@ -34,12 +36,14 @@ public class FlashCard extends AppCompatActivity {
     View mCardFrontLayout;
     View mCardBackLayout;
     ImageButton rightButton, leftButton;
-    Button shuffleButton;
+    Button shuffleButton, audioButton;
     TextView back, front, pin, curr, total;
     String[] checkedWords;
     String[] checkedDefs;
     String[] checkedPins;
     int currentNum = 0;
+
+    int countPreviousDialogues;
 
     int endDialogue;
     int startDialogue;
@@ -52,6 +56,8 @@ public class FlashCard extends AppCompatActivity {
     List<String> allWordsList = new ArrayList<>();
     List<String> allEnglishList = new ArrayList<>();
     List<String> allPinList = new ArrayList<>();
+
+    MediaPlayer[] players;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,6 +76,7 @@ public class FlashCard extends AppCompatActivity {
         initAnimations();
         initButtons();
         changeCameraDistance();
+        initMediaPlayers();
     }
 
     private void changeCameraDistance()
@@ -78,6 +85,30 @@ public class FlashCard extends AppCompatActivity {
         float scale = getResources().getDisplayMetrics().density * distance;
         mCardFrontLayout.setCameraDistance(scale);
         mCardBackLayout.setCameraDistance(scale);
+    }
+
+    private void initMediaPlayers()
+    {
+        VarHolder varHolder = new VarHolder(true);
+
+        players = new MediaPlayer[checkedNums.size()];
+
+        try
+        {
+            for (int i = 0; i < checkedNums.size(); i++)
+            {
+                //String uriA = "@raw/audio_" + countPreviousDialogues + checkedNums[i];
+                String uriA = "@raw/red_spy_in_base";
+                int audioResource = getResources().getIdentifier(uriA, null, getPackageName());
+                players[i] = MediaPlayer.create(this, audioResource);
+            }
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+            Toast.makeText(this, "Error in audio file reading", Toast.LENGTH_SHORT).show();
+            Log.d("TAG", "ERROR, FILE READ STOPPED");
+        }
     }
 
     private void initAnimations()
@@ -161,10 +192,19 @@ public class FlashCard extends AppCompatActivity {
         {
             public void onClick(View v)
             {
-                randomizeArrays(checkedWords, checkedDefs, checkedPins);
+                randomizeArrays(checkedWords, checkedDefs, checkedPins, players);
                 front.setText(getCurrentWord());
                 back.setText(getCurrentDef());
                 pin.setText(getCurrentPin());
+            }
+        });
+
+        audioButton = findViewById(R.id.flashcard_button_play_audio);
+        audioButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                players[getCurrentNum()].start();
             }
         });
     }
@@ -188,6 +228,7 @@ public class FlashCard extends AppCompatActivity {
 
     private void parseCsv()
     {
+
         allWords = new List[endDialogue - startDialogue];
         allEnglish = new List[endDialogue - startDialogue];
         allPin = new List[endDialogue - startDialogue];
@@ -216,6 +257,7 @@ public class FlashCard extends AppCompatActivity {
             {
                 e.printStackTrace();
                 Toast.makeText(this, "Error in file reading", Toast.LENGTH_SHORT).show();
+                Log.d("TAG", "ERROR, FILE READ STOPPED");
             }
 
             count++;
@@ -238,6 +280,11 @@ public class FlashCard extends AppCompatActivity {
         {
             allPinList.addAll(list);
         }
+
+        for (int i = 0; i < allEnglishList.size(); i++)
+        {
+            Log.d("TAG", "" + allWordsList.get(i));
+        }
     }
 
     private String getCurrentWord()
@@ -255,7 +302,12 @@ public class FlashCard extends AppCompatActivity {
         return checkedPins[currentNum];
     }
 
-    private void randomizeArrays(String[] word, String[] def, String[] pin)
+    private int getCurrentNum()
+    {
+        return currentNum;
+    }
+
+    private void randomizeArrays(String[] word, String[] def, String[] pin, MediaPlayer[] player)
     {
         Random rgen = new Random();
 
@@ -273,6 +325,10 @@ public class FlashCard extends AppCompatActivity {
             String temp2 = pin[i];
             pin[i] = pin[randomPosition];
             pin[randomPosition] = temp2;
+
+            MediaPlayer temp3 = player[i];
+            player[i] = player[randomPosition];
+            player[randomPosition] = temp3;
         }
     }
 }

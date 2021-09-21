@@ -22,16 +22,11 @@ import java.util.List;
 
 public class WordChecklist extends AppCompatActivity
 {
-    ListView simpleListView;
-
-    WordAdapter wordAdapter;
-
     //defining page to display on
     ListView simpleList;
     Button studyButton;
 
-    Button[] selectButtons;
-    Button allButton;
+    Button allButton, starButton;
 
     //defining elements to be displayed
 
@@ -54,8 +49,6 @@ public class WordChecklist extends AppCompatActivity
 
     AutoCompleteTextView autoCompleteTextView;
 
-    String[] wordCsv;
-
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
@@ -77,16 +70,21 @@ public class WordChecklist extends AppCompatActivity
     {
         adapters = new ArrayList<>();
         boolean checkedBoxes[][] = new boolean[dialogueNames.length - 1][];
+        boolean starBoxes[][] = new boolean[dialogueNames.length - 1][];
 
+        VarHolder varHolder = new VarHolder();
 
+        int count = 0;
         for (int i = 0; i < dialogueNames.length - 1; i++)
         {
-            WordAdapter wordAdapter = new WordAdapter(this, R.layout.item_view, allWords[i], allEnglish[i], allPin[i]);
+            WordAdapter wordAdapter = new WordAdapter(this, R.layout.item_view, allWords[i], allEnglish[i], allPin[i], count);
             adapters.add(wordAdapter);
             checkedBoxes[i] = wordAdapter.getCheckedArray();
+            starBoxes[i] = wordAdapter.getStarArray();
+            count += allWords[i].size();
         }
 
-        adapters.add(new WordAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList, checkedBoxes));
+        adapters.add(new WordAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList, checkedBoxes, starBoxes));
 
         position = adapters.size() - 1;
     }
@@ -109,6 +107,21 @@ public class WordChecklist extends AppCompatActivity
                 //Toast.makeText(WordChecklist.this, allEnglish[0].get(2), Toast.LENGTH_SHORT).show();
 
                 ArrayList<Integer> temp = getChecked();
+                Intent intent = new Intent(v.getContext(), FlashCard.class);
+                intent.putExtra("checked", temp);
+                intent.putExtra("end", endDialogue);
+                intent.putExtra("start", startDialogue);
+                startActivity(intent);
+            }
+        });
+
+        starButton = findViewById(R.id.checklist_star_button);
+
+        starButton.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                ArrayList<Integer> temp = getStarChecked();
                 Intent intent = new Intent(v.getContext(), FlashCard.class);
                 intent.putExtra("checked", temp);
                 intent.putExtra("end", endDialogue);
@@ -198,7 +211,12 @@ public class WordChecklist extends AppCompatActivity
 
     private ArrayList<Integer> getChecked()
     {
-        return wordAdapter.getChecked();
+        return adapters.get(position).getChecked();
+    }
+
+    private ArrayList<Integer> getStarChecked()
+    {
+        return adapters.get(position).getStarChecked();
     }
 
     @Override
@@ -214,10 +232,9 @@ public class WordChecklist extends AppCompatActivity
 
     private void swapList(int position)
     {
-        this.position = position - 1;
-
         if (position == 0)
         {
+            this.position = adapters.size() - 1;
             simpleList = (ListView) findViewById(R.id.simple_list_view);
             simpleList.setAdapter(adapters.get(adapters.size() - 1));
 
@@ -250,9 +267,18 @@ public class WordChecklist extends AppCompatActivity
                     }
                 }
             });
+
+            ArrayList<Integer> bool = adapters.get(adapters.size() - 1).getStarChecked();
+
+            for (int i : bool)
+            {
+                Log.d("TAG", "" + i);
+            }
         }
         else
         {
+            this.position = position - 1;
+
             simpleList = (ListView) findViewById(R.id.simple_list_view);
             simpleList.setAdapter(adapters.get(position - 1));
 

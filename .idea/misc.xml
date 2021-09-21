@@ -7,9 +7,12 @@
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable-v24/level_border.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/big_circle_button.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/border.xml" value="0.48026315789473684" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/check_background.xml" value="0.5069444444444444" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/checklist_border.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/circle_button.xml" value="0.30833333333333335" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_diagonal_line.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_diagonal_line_13.xml" value="0.4888888888888889" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_filled_star_30px.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_launcher_background.xml" value="0.46620370370370373" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_left_icon.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_left_icon_40px.xml" value="0.4888888888888889" />
@@ -18,10 +21,18 @@
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_left_icon_60px_thick.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_right_icon.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_right_icon_40px.xml" value="0.4888888888888889" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_right_icon_60px_thick.xml" value="0.5069444444444444" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_unfilled_star_30px.xml" value="0.5069444444444444" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_unfilled_star_black_30px.xml" value="0.4930555555555556" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_unfilled_star_white_30px.xml" value="0.5069444444444444" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_volume_icon_15px.xml" value="0.5069444444444444" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_volume_icon_rounder_yellow_15px.xml" value="0.5069444444444444" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_volume_icon_yellow_15px.xml" value="0.5069444444444444" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_white_box.xml" value="0.4930555555555556" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/rectangle.xml" value="0.46620370370370373" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/shuffle_white_svg.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/shuffle_white_svg_copyrighted.xml" value="0.4888888888888889" />
-        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout-v21/flashcard.xml" value="0.2523148148148148" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout-v21/flashcard.xml" value="0.49282075034738304" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/activity_main.xml" value="0.4925925925925926" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/drop_menu_list.xml" value="0.4666666666666667" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/layout/drop_menu_view.xml" value="0.39035087719298245" />

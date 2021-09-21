@@ -8,15 +8,11 @@ import java.util.List;
 
 public class VarHolder
 {
-    final String[] words = new String[] {"你", "我", "是", "那", "他", "我们"};
-    final String[] defs = new String[] {"you", "me", "is", "that", "him", "we"};
-    final String[] pins = new String[] {"ni", "wo", "shi", "na", "ta", "wo men"};
     //final String[] levelImages = new String[] {"level_1_image.png", "level_2_image.png", "level_3_image.png", "level_4_image.png", "level_5_image.png", "level_6_image.png"};
-    final String[] levelImages = new String[] {"level_1_image.png", "level_2_image.png", "level_3_image.png"};
-    final String[] levelNames = new String[] {"LEVEL 1", "LEVEL 2", "LEVEL 3"};
-    final String[] DialogueNames = new String[] {"Dialogue 1", "Dialogue 2", "Dialogue 3", "Dialogue 4", "Dialogue 5", "Dialogue 6", "Dialogue 7", "Dialogue 8", "Dialogue 9", "Dialogue 10"};
-    int[] dialoguesPerLevel = new int[] {3, 3, 4};
-    final String[][] allWords = new String[][] {{"test1", "test2"}, {"test3", "test4"}, {"test5", "test6"}, {"test7", "test8"}, {"test9", "test10"}, {"test11", "test12"}, {"test13", "test14"}, {"test15", "test16"}, {"test17", "test18"}, {"test19", "test20"}};
+    final String[] levelImages = new String[] {"level_1_image.png", "level_2_image.png", "level_3_image.png", "level_4_image.png"};
+    final String[] levelNames = new String[] {"LEVEL 1", "LEVEL 2", "LEVEL 3", "LEVEL 4"};
+    final String[] DialogueNames = new String[] {"Dialogue 1", "Dialogue 2", "Dialogue 3", "Dialogue 4", "Dialogue 5", "Dialogue 6", "Dialogue 7", "Dialogue 8", "Dialogue 9", "Dialogue 10", "Dialogue 11", "Dialogue 12", "Dialogue 13", "Dialogue 14", "Dialogue 15", "Dialogue 16", "Dialogue 17", "Dialogue 18", "Dialogue 19", "Dialogue 20", "Dialogue 21", "Dialogue 22", "Dialogue 23", "Dialogue 24", "Dialogue 25", "Dialogue 26", "Dialogue 27", "Dialogue 28", "Dialogue 29", "Dialogue 30", "Dialogue 31", "Dialogue 32", "Dialogue 33"};
+    int[] dialoguesPerLevel = new int[] {8, 8, 9, 8};
     private int[] previousDialogueSums;
 
 
@@ -40,21 +36,6 @@ public class VarHolder
         //too lazy to change all of the class calls
     }
 
-    public String[] getWords()
-    {
-        return words;
-    }
-
-    public String[] getDefs()
-    {
-        return defs;
-    }
-
-    public String[] getPins()
-    {
-        return pins;
-    }
-
     public String[] getLevelImages()
     {
         return levelImages;
@@ -68,11 +49,6 @@ public class VarHolder
     public int getNumImages()
     {
         return levelImages.length;
-    }
-
-    public String[] getWordsByLesson(int index)
-    {
-        return allWords[index];
     }
 
     public int getDialoguesPerLevel(int index)
@@ -100,10 +76,5 @@ public class VarHolder
         }
 
         return ret;
-    }
-
-    public String[][] getAllWords()
-    {
-        return allWords;
     }
 }
