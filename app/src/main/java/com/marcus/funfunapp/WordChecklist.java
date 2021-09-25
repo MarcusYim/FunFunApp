@@ -28,8 +28,6 @@ public class WordChecklist extends AppCompatActivity
 
     Button allButton, starButton;
 
-    //defining elements to be displayed
-
     List<String> allWordsList = new ArrayList<>();
     List<String> allEnglishList = new ArrayList<>();
     List<String> allPinList = new ArrayList<>();
@@ -47,6 +45,8 @@ public class WordChecklist extends AppCompatActivity
     int endDialogue;
     String[] dialogueNames;
 
+    boolean[][] starredArr;
+
     AutoCompleteTextView autoCompleteTextView;
 
     protected void onCreate(Bundle savedInstanceState)
@@ -59,6 +59,9 @@ public class WordChecklist extends AppCompatActivity
         endDialogue = extras.getInt("end");
         dialogueNames = extras.getStringArray("dialogues");
 
+        VarHolder varHolder = new VarHolder();
+        starredArr = varHolder.getSubStarredArray(endDialogue, startDialogue);
+
         parseCsv();
         combineAllWords();
         initDropdownMenu();
@@ -68,23 +71,20 @@ public class WordChecklist extends AppCompatActivity
 
     private void initAdapters()
     {
-        adapters = new ArrayList<>();
         boolean checkedBoxes[][] = new boolean[dialogueNames.length - 1][];
-        boolean starBoxes[][] = new boolean[dialogueNames.length - 1][];
 
-        VarHolder varHolder = new VarHolder();
+        adapters = new ArrayList<>();
 
         int count = 0;
         for (int i = 0; i < dialogueNames.length - 1; i++)
         {
-            WordAdapter wordAdapter = new WordAdapter(this, R.layout.item_view, allWords[i], allEnglish[i], allPin[i], count);
+            WordAdapter wordAdapter = new WordAdapter(this, R.layout.item_view, allWords[i], allEnglish[i], allPin[i], count, starredArr[i]);
             adapters.add(wordAdapter);
             checkedBoxes[i] = wordAdapter.getCheckedArray();
-            starBoxes[i] = wordAdapter.getStarArray();
             count += allWords[i].size();
         }
 
-        adapters.add(new WordAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList, checkedBoxes, starBoxes));
+        adapters.add(new WordAdapter(this, R.layout.item_view, allWordsList, allEnglishList, allPinList, checkedBoxes, starredArr));
 
         position = adapters.size() - 1;
     }
@@ -107,11 +107,15 @@ public class WordChecklist extends AppCompatActivity
                 //Toast.makeText(WordChecklist.this, allEnglish[0].get(2), Toast.LENGTH_SHORT).show();
 
                 ArrayList<Integer> temp = getChecked();
-                Intent intent = new Intent(v.getContext(), FlashCard.class);
-                intent.putExtra("checked", temp);
-                intent.putExtra("end", endDialogue);
-                intent.putExtra("start", startDialogue);
-                startActivity(intent);
+
+                if (temp.size() > 0)
+                {
+                    Intent intent = new Intent(v.getContext(), FlashCard.class);
+                    intent.putExtra("checked", temp);
+                    intent.putExtra("end", endDialogue);
+                    intent.putExtra("start", startDialogue);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -122,11 +126,15 @@ public class WordChecklist extends AppCompatActivity
             public void onClick(View v)
             {
                 ArrayList<Integer> temp = getStarChecked();
-                Intent intent = new Intent(v.getContext(), FlashCard.class);
-                intent.putExtra("checked", temp);
-                intent.putExtra("end", endDialogue);
-                intent.putExtra("start", startDialogue);
-                startActivity(intent);
+
+                if (temp.size() > 0)
+                {
+                    Intent intent = new Intent(v.getContext(), FlashCard.class);
+                    intent.putExtra("checked", temp);
+                    intent.putExtra("end", endDialogue);
+                    intent.putExtra("start", startDialogue);
+                    startActivity(intent);
+                }
             }
         });
 
@@ -175,38 +183,11 @@ public class WordChecklist extends AppCompatActivity
 
     private void parseCsv()
     {
-        allWords = new List[endDialogue - startDialogue];
-        allEnglish = new List[endDialogue - startDialogue];
-        allPin = new List[endDialogue - startDialogue];
+        VarHolder varHolder = new VarHolder();
 
-        int count = 0;
-        for (int i = startDialogue; i < endDialogue; i++)
-        {
-            try
-            {
-                String uriC = "@raw/dialogue_" + i + "_chinese";
-                int csvResourceC = getResources().getIdentifier(uriC, null, getPackageName());
-                CSVReader readerC = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceC)));
-                allWords[count] = Arrays.asList(readerC.readNext());
-
-                String uriE = "@raw/dialogue_" + i + "_english";
-                int csvResourceE = getResources().getIdentifier(uriE, null, getPackageName());
-                CSVReader readerE = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceE)));
-                allEnglish[count] = Arrays.asList(readerE.readNext());
-
-                String uriP = "@raw/dialogue_" + i + "_pin";
-                int csvResourceP = getResources().getIdentifier(uriP, null, getPackageName());
-                CSVReader readerP = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceP)));
-                allPin[count] = Arrays.asList(readerP.readNext());
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                Toast.makeText(this, "Error in file reading", Toast.LENGTH_SHORT).show();
-            }
-
-            count++;
-        }
+        allWords = varHolder.getSubChineseArray(endDialogue, startDialogue);
+        allEnglish = varHolder.getSubEnglishArray(endDialogue, startDialogue);
+        allPin = varHolder.getSubPinArray(endDialogue, startDialogue);
     }
 
     private ArrayList<Integer> getChecked()
@@ -269,11 +250,6 @@ public class WordChecklist extends AppCompatActivity
             });
 
             ArrayList<Integer> bool = adapters.get(adapters.size() - 1).getStarChecked();
-
-            for (int i : bool)
-            {
-                Log.d("TAG", "" + i);
-            }
         }
         else
         {
@@ -318,6 +294,7 @@ public class WordChecklist extends AppCompatActivity
     {
         for (List<String> list : allWords)
         {
+
             allWordsList.addAll(list);
         }
 

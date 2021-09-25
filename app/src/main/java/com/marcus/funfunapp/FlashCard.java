@@ -228,40 +228,11 @@ public class FlashCard extends AppCompatActivity {
 
     private void parseCsv()
     {
+        VarHolder varHolder = new VarHolder();
 
-        allWords = new List[endDialogue - startDialogue];
-        allEnglish = new List[endDialogue - startDialogue];
-        allPin = new List[endDialogue - startDialogue];
-
-        int count = 0;
-        for (int i = startDialogue; i < endDialogue; i++)
-        {
-            try
-            {
-                String uriC = "@raw/dialogue_" + i + "_chinese";
-                int csvResourceC = getResources().getIdentifier(uriC, null, getPackageName());
-                CSVReader readerC = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceC)));
-                allWords[count] = Arrays.asList(readerC.readNext());
-
-                String uriE = "@raw/dialogue_" + i + "_english";
-                int csvResourceE = getResources().getIdentifier(uriE, null, getPackageName());
-                CSVReader readerE = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceE)));
-                allEnglish[count] = Arrays.asList(readerE.readNext());
-
-                String uriP = "@raw/dialogue_" + i + "_pin";
-                int csvResourceP = getResources().getIdentifier(uriP, null, getPackageName());
-                CSVReader readerP = new CSVReader(new InputStreamReader(getResources().openRawResource(csvResourceP)));
-                allPin[count] = Arrays.asList(readerP.readNext());
-            }
-            catch (Exception e)
-            {
-                e.printStackTrace();
-                Toast.makeText(this, "Error in file reading", Toast.LENGTH_SHORT).show();
-                Log.d("TAG", "ERROR, FILE READ STOPPED");
-            }
-
-            count++;
-        }
+        allWords = varHolder.getSubChineseArray(endDialogue, startDialogue);
+        allEnglish = varHolder.getSubEnglishArray(endDialogue, startDialogue);
+        allPin = varHolder.getSubPinArray(endDialogue, startDialogue);
     }
 
     private void combineAllWords()
@@ -279,11 +250,6 @@ public class FlashCard extends AppCompatActivity {
         for (List<String> list : allPin)
         {
             allPinList.addAll(list);
-        }
-
-        for (int i = 0; i < allEnglishList.size(); i++)
-        {
-            Log.d("TAG", "" + allWordsList.get(i));
         }
     }
 

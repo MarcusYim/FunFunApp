@@ -71,7 +71,6 @@ public class MainActivity extends AppCompatActivity
         {
             Toast.makeText(MainActivity.this, "Authentication Failed", Toast.LENGTH_LONG).show();
         }
-
          */
     }
 

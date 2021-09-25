@@ -35,13 +35,14 @@ public class WordAdapter extends ArrayAdapter<String>
 
     int previousDialogueNum;
 
-    public WordAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects, int numObject)
+    public WordAdapter(Context context, int textViewResourceId, List<String> wordObjects, List<String> defObjects, List<String> pinObjects, int numObject, boolean[] starObjects)
     {
         super(context, textViewResourceId, wordObjects);
 
         wordList = wordObjects;
         defList = defObjects;
         pinList = pinObjects;
+        starHolder = starObjects;
 
         previousDialogueNum = numObject;
 
@@ -78,8 +79,7 @@ public class WordAdapter extends ArrayAdapter<String>
             v = inflater.inflate(R.layout.item_view, null);
             return v;
         }
-
-         */
+        */
 
         //create inflater
         View v = convertView;
@@ -222,12 +222,15 @@ public class WordAdapter extends ArrayAdapter<String>
             checkedHolder[i] = false;
         }
 
+        /*
         starHolder = new boolean[getCount()];
 
         for (int i = 0; i < getCount(); i++)
         {
             starHolder[i] = false;
         }
+
+         */
     }
 
     public boolean[] getCheckedArray()
@@ -350,7 +353,6 @@ public class WordAdapter extends ArrayAdapter<String>
         {
             for (int i = 0; i < checkedBoxes.length; i++)
             {
-                Log.d("TAG", "" + i + " " + checkedBoxes[i]);
                 Arrays.fill(checkedBoxes[i], false);
             }
         }
@@ -370,4 +372,6 @@ public class WordAdapter extends ArrayAdapter<String>
             }
         }
     }
+
+
 }

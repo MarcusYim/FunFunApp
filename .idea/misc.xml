@@ -4,6 +4,7 @@
     <option name="filePathToZoomLevelMap">
       <map>
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable-v24/button_background.xml" value="0.30833333333333335" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable-v24/ic_launcher_foreground.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable-v24/level_border.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/big_circle_button.xml" value="0.4888888888888889" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/border.xml" value="0.48026315789473684" />
@@ -28,6 +29,7 @@
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_volume_icon_15px.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_volume_icon_rounder_yellow_15px.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_volume_icon_yellow_15px.xml" value="0.5069444444444444" />
+        <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_volume_icon_yellow_copyrighted.xml" value="0.5069444444444444" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/ic_white_box.xml" value="0.4930555555555556" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/rectangle.xml" value="0.46620370370370373" />
         <entry key="..\:/Users/Marcus/AndroidStudioProjects/FunFunApp/app/src/main/res/drawable/shuffle_white_svg.xml" value="0.5069444444444444" />

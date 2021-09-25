@@ -1,12 +1,17 @@
 package com.marcus.funfunapp;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
+import android.widget.ArrayAdapter;
+import android.widget.AutoCompleteTextView;
 import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
@@ -26,23 +31,32 @@ public class LevelSelect extends AppCompatActivity
     TextView levelText;
     ListView levelSelect;
     LevelAdapter levelAdapter;
+    Button studyStarred;
+    boolean[][] starredArr;
+    VarHolder varHolder;
+
 
     protected void onCreate(Bundle savedInstanceState)
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.level_select);
 
+        varHolder = new VarHolder();
+        varHolder.initStarredArray();
+        starredArr = varHolder.getStarredArr();
+        varHolder.initStarredArray();
+
         initVars();
         initCustomView();
+        initButtons();
     }
 
     private void initVars()
     {
-        VarHolder var = new VarHolder();
-        imageArr = var.getLevelImages();
-        nameArr = var.getLevelNames();
+        imageArr = varHolder.getLevelImages();
+        nameArr = varHolder.getLevelNames();
 
-        for (int i = 0; i < var.getNumImages(); i++)
+        for (int i = 0; i < varHolder.getNumImages(); i++)
         {
             String uri = "@drawable/level_" + (i + 1) + "_image";
             int imageResource = getResources().getIdentifier(uri, null, getPackageName());
@@ -61,7 +75,21 @@ public class LevelSelect extends AppCompatActivity
         levelSelect = (ListView) findViewById(R.id.level_list_view);
 
         //create and set custom adapter
-        levelAdapter = new LevelAdapter(this, R.layout.item_view, imageList, nameList, drawableList);
+        levelAdapter = new LevelAdapter(this, R.layout.item_view, imageList, nameList, drawableList, starredArr);
         levelSelect.setAdapter(levelAdapter);
+    }
+
+    private void initButtons()
+    {
+        studyStarred = (Button) findViewById(R.id.level_button_starred);
+
+        studyStarred.setOnClickListener(new View.OnClickListener()
+        {
+            public void onClick(View v)
+            {
+                boolean[][] arr = varHolder.getStarredArr();
+
+            }
+        });
     }
 }
