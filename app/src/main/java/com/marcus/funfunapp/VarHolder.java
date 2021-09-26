@@ -2,6 +2,7 @@ package com.marcus.funfunapp;
 
 import android.util.Log;
 
+import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
@@ -229,6 +230,11 @@ public class VarHolder
 
     public boolean[][] getSubStarredArray(int endDialogue, int startDialogue)
     {
+        if ((endDialogue - startDialogue) == allEnglish.length)
+        {
+            return starredArr;
+        }
+
         boolean ret [][] = new boolean[endDialogue - startDialogue][];
 
         int count = 0;
@@ -253,5 +259,26 @@ public class VarHolder
         }
 
         starredArr = temp;
+    }
+
+    public ArrayList<Integer> getStarredChecked()
+    {
+        ArrayList<Integer> ret = new ArrayList<>();
+
+        int count = 0;
+        for (int i = 0; i < starredArr.length; i++)
+        {
+            for (int x = 0; x < starredArr[i].length; x++)
+            {
+                if (starredArr[i][x])
+                {
+                    ret.add(count);
+                }
+
+                count++;
+            }
+        }
+
+        return ret;
     }
 }

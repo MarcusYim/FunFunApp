@@ -87,8 +87,16 @@ public class LevelSelect extends AppCompatActivity
         {
             public void onClick(View v)
             {
-                boolean[][] arr = varHolder.getStarredArr();
+                ArrayList<Integer> temp = varHolder.getStarredChecked();
 
+                if (temp.size() > 0)
+                {
+                    Intent intent = new Intent(v.getContext(), FlashCard.class);
+                    intent.putExtra("checked", temp);
+                    intent.putExtra("end", starredArr.length);
+                    intent.putExtra("start", 0);
+                    startActivity(intent);
+                }
             }
         });
     }
