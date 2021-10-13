@@ -97,6 +97,7 @@ public class LevelAdapter extends ArrayAdapter<String>
                 intent.putExtra("starred", starredArr);
                 intent.putExtra("dialogues", varHolder.getSubDialogueArray(previous, previous + curr));
 
+
                 intent.putExtras(bundle);
                 intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 

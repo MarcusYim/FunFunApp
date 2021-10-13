@@ -115,6 +115,22 @@
             tools:ignore="SpeakableTextPresentCheck" />
 
         <Button
+            android:id="@+id/flashcard_button_star"
+            android:layout_width="60dp"
+            android:layout_height="60dp"
+            android:layout_marginEnd="10dp"
+            android:background="@drawable/big_circle_button"
+            android:elevation="2dp"
+            app:backgroundTint="@color/tan"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.98"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.01999998"
+            tools:ignore="SpeakableTextPresentCheck" />
+
+        <Button
             android:id="@+id/flashcard_button_play_audio"
             android:layout_width="60dp"
             android:layout_height="60dp"
@@ -135,6 +151,18 @@
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
         android:layout_height="match_parent">
+
+        <ImageView
+            android:id="@+id/flashcard_image_star"
+            android:layout_width="40dp"
+            android:layout_height="40dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintHorizontal_bias="0.925"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            app:layout_constraintVertical_bias="0.02952"
+            app:srcCompat="@drawable/check_background" />
 
         <ImageView
             android:id="@+id/flashcard_image_shuffle"

@@ -19,12 +19,9 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.opencsv.CSVReader;
 
-import java.io.InputStreamReader;
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Arrays;
+
 import java.util.List;
 import java.util.Random;
 
@@ -38,25 +35,35 @@ public class FlashCard extends AppCompatActivity {
     ImageButton rightButton, leftButton;
     Button shuffleButton, audioButton;
     TextView back, front, pin, curr, total;
+    ImageView star;
+
+    //array that the flashcards iterate through
     String[] checkedWords;
     String[] checkedDefs;
     String[] checkedPins;
     int currentNum = 0;
 
-    int countPreviousDialogues;
-
+    //stores the number of the first dialogue and last dialogue
     int endDialogue;
     int startDialogue;
+    //arraylist of each character's number in relation to the start dialogue
+    //so if "0" was in this list, that would be the first character in the startdialogue
+    //not in relation to all the dialogues. "0" != first character in the first dialogue
     ArrayList<Integer> checkedNums;
+    ArrayList<Integer> starredNums;
 
+    //this contains the words/english/pin in the dialogue format
+    //allWords[0] is the words in the startdialogue
     List<String>[] allWords;
     List<String>[] allEnglish;
     List<String>[] allPin;
 
+    //amalgamated list of all dialogues startdialogue-enddialogue
     List<String> allWordsList = new ArrayList<>();
     List<String> allEnglishList = new ArrayList<>();
     List<String> allPinList = new ArrayList<>();
 
+    //audio players
     MediaPlayer[] players;
 
     @Override
@@ -68,6 +75,7 @@ public class FlashCard extends AppCompatActivity {
         startDialogue = extras.getInt("start");
         endDialogue = extras.getInt("end");
         checkedNums = extras.getIntegerArrayList("checked");
+        starredNums = extras.getIntegerArrayList("starred");
 
         parseCsv();
         combineAllWords();
@@ -87,10 +95,9 @@ public class FlashCard extends AppCompatActivity {
         mCardBackLayout.setCameraDistance(scale);
     }
 
+    //generate media players from mp3
     private void initMediaPlayers()
     {
-        VarHolder varHolder = new VarHolder(true);
-
         players = new MediaPlayer[checkedNums.size()];
 
         try
@@ -131,8 +138,10 @@ public class FlashCard extends AppCompatActivity {
         curr.setText("1");
         total = (TextView) findViewById(R.id.flashcard_total);
         total.setText(getResources().getString(R.string.integer_to_string, checkedWords.length));
+        star = (ImageView) findViewById(R.id.flashcard_image_star);
     }
 
+    //animations
     public void flipCard(View view)
     {
         if (!mIsBackVisible)
@@ -155,6 +164,7 @@ public class FlashCard extends AppCompatActivity {
 
     private void initButtons()
     {
+        //button to move right
         rightButton = findViewById(R.id.flashcard_button_right);
         rightButton.setOnClickListener(new View.OnClickListener()
         {
@@ -162,6 +172,7 @@ public class FlashCard extends AppCompatActivity {
             {
                 if (currentNum < checkedWords.length - 1)
                 {
+                    //current num is the current card number
                     currentNum++;
                     front.setText(getCurrentWord());
                     back.setText(getCurrentDef());
@@ -171,6 +182,7 @@ public class FlashCard extends AppCompatActivity {
             }
         });
 
+        //button to move left
         leftButton = findViewById(R.id.flashcard_button_left);
         leftButton.setOnClickListener(new View.OnClickListener()
         {
@@ -187,6 +199,7 @@ public class FlashCard extends AppCompatActivity {
             }
         });
 
+        //shuffle button
         shuffleButton = findViewById(R.id.flashcard_button_shuffle);
         shuffleButton.setOnClickListener(new View.OnClickListener()
         {
@@ -209,6 +222,7 @@ public class FlashCard extends AppCompatActivity {
         });
     }
 
+    //creating the array that the flashcards will go through
     private void initChecked()
     {
         Intent intent = getIntent();
@@ -226,6 +240,7 @@ public class FlashCard extends AppCompatActivity {
         }
     }
 
+    //doesnt parse CSV anymore, just gets arrays from varHolder
     private void parseCsv()
     {
         VarHolder varHolder = new VarHolder();
@@ -235,9 +250,12 @@ public class FlashCard extends AppCompatActivity {
         allPin = varHolder.getSubPinArray(endDialogue, startDialogue);
     }
 
+    //probably a bad implementation
+    //don't have to copy everything to a list just to copy it to an array
     private void combineAllWords()
     {
         for (List<String> list : allWords)
+
         {
             allWordsList.addAll(list);
         }
@@ -253,6 +271,7 @@ public class FlashCard extends AppCompatActivity {
         }
     }
 
+    //methods used to get words/defs/pins at the current flashcard position
     private String getCurrentWord()
     {
         return checkedWords[currentNum];
@@ -273,29 +292,45 @@ public class FlashCard extends AppCompatActivity {
         return currentNum;
     }
 
+    //array randomizer for button
     private void randomizeArrays(String[] word, String[] def, String[] pin, MediaPlayer[] player)
     {
         Random rgen = new Random();
 
         for (int i = 0; i < word.length; i++)
         {
+            //randomize words
             int randomPosition = rgen.nextInt(word.length);
             String temp = word[i];
             word[i] = word[randomPosition];
             word[randomPosition] = temp;
 
+            //randomize defs
             String temp1 = def[i];
             def[i] = def[randomPosition];
             def[randomPosition] = temp1;
 
+            //randomize pins
             String temp2 = pin[i];
             pin[i] = pin[randomPosition];
             pin[randomPosition] = temp2;
 
+            //randomize players
             MediaPlayer temp3 = player[i];
             player[i] = player[randomPosition];
             player[randomPosition] = temp3;
         }
+    }
+
+    //doesn't work
+    @Override
+    public void onBackPressed()
+    {
+        Intent i = new Intent();
+        //i.putExtra("starred", starredNums);
+        i.putExtra("starred", "wasdsdvcc");
+        setResult(RESULT_OK, i);
+        finish();
     }
 }
 

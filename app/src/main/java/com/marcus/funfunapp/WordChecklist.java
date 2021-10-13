@@ -13,7 +13,7 @@ import android.widget.Toast;
 
 import androidx.appcompat.app.AppCompatActivity;
 
-import com.opencsv.CSVReader;
+
 
 import java.io.InputStreamReader;
 import java.util.ArrayList;
@@ -48,6 +48,8 @@ public class WordChecklist extends AppCompatActivity
     boolean[][] starredArr;
 
     AutoCompleteTextView autoCompleteTextView;
+
+    final int FLASHCARD_CODE = 0;
 
     protected void onCreate(Bundle savedInstanceState)
     {
@@ -107,6 +109,7 @@ public class WordChecklist extends AppCompatActivity
                 //Toast.makeText(WordChecklist.this, allEnglish[0].get(2), Toast.LENGTH_SHORT).show();
 
                 ArrayList<Integer> temp = getChecked();
+                ArrayList<Integer> star = getStarChecked();
 
                 if (temp.size() > 0)
                 {
@@ -114,6 +117,7 @@ public class WordChecklist extends AppCompatActivity
                     intent.putExtra("checked", temp);
                     intent.putExtra("end", endDialogue);
                     intent.putExtra("start", startDialogue);
+                    intent.putExtra("starred", star);
                     startActivity(intent);
                 }
             }
@@ -133,7 +137,8 @@ public class WordChecklist extends AppCompatActivity
                     intent.putExtra("checked", temp);
                     intent.putExtra("end", endDialogue);
                     intent.putExtra("start", startDialogue);
-                    startActivity(intent);
+                    intent.putExtra("starred", temp);
+                    startActivityForResult(intent, FLASHCARD_CODE);
                 }
             }
         });
@@ -307,5 +312,21 @@ public class WordChecklist extends AppCompatActivity
         {
             allPinList.addAll(list);
         }
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data)
+    {
+        Log.d("TAG", "np");
+
+        super.onActivityResult(requestCode, resultCode, data);
+
+        if (requestCode == FLASHCARD_CODE && resultCode == RESULT_OK)
+        {
+            String newId = data.getStringExtra("starred");
+            Log.d("TAG", newId);
+        }
+
+        Log.d("TAG", "np");
     }
 }

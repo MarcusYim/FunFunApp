@@ -1,6 +1,7 @@
 package com.marcus.funfunapp;
 
 import android.content.Context;
+import android.graphics.Typeface;
 import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -10,6 +11,8 @@ import android.widget.CheckBox;
 import android.widget.CompoundButton;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import androidx.core.content.res.ResourcesCompat;
 
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -86,15 +89,20 @@ public class WordAdapter extends ArrayAdapter<String>
         LayoutInflater inflater = (LayoutInflater) getContext().getSystemService(Context.LAYOUT_INFLATER_SERVICE);
         v = inflater.inflate(R.layout.item_view, null);
 
+        Typeface typeface = ResourcesCompat.getFont(v.getContext(), R.font.pingfang_regular);
+
         //set word and def in their respective textViews
         TextView wordView = (TextView) v.findViewById(R.id.wordView);
         wordView.setText(wordList.get(position));
+        wordView.setTypeface(typeface);
 
         TextView defView = (TextView) v.findViewById(R.id.defView);
         defView.setText(defList.get(position));
+        defView.setTypeface(typeface);
 
         TextView pinView = (TextView) v.findViewById(R.id.pinView);
         pinView.setText(pinList.get(position));
+        pinView.setTypeface(typeface);
 
         CheckBox checkBox = (CheckBox) v.findViewById(R.id.checkBox);
 
