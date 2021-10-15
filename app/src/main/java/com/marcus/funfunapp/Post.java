@@ -4,21 +4,21 @@ import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @JsonIgnoreProperties(ignoreUnknown = true)
 
-public class Posty
+public class Post
 {
-    private Taggy data;
+    private Tag data;
 
-    public Posty()
+    public Post()
     {
 
     }
 
-    public Posty(Taggy data)
+    public Post(Tag data)
     {
         this.data = data;
     }
 
-    public Taggy getData()
+    public Tag getData()
     {
         return data;
     }

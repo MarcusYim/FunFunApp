@@ -1,16 +1,16 @@
 package com.marcus.funfunapp;
 
-public class Taggy
+public class Tag
 {
     private String modulus;
     private String exponent;
 
-    public Taggy()
+    public Tag()
     {
 
     }
 
-    public Taggy(String modulus, String exponent)
+    public Tag(String modulus, String exponent)
     {
         super();
         this.modulus = modulus;
