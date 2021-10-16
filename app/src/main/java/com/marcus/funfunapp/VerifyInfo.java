@@ -1,5 +1,7 @@
 package com.marcus.funfunapp;
 
+import android.util.Log;
+
 import com.auth0.jwt.JWT;
 import com.auth0.jwt.algorithms.Algorithm;
 import com.fasterxml.jackson.databind.ObjectMapper;
@@ -14,18 +16,26 @@ import java.security.KeyFactory;
 import java.security.PublicKey;
 import java.security.spec.RSAPublicKeySpec;
 import java.util.*;
+import java.util.concurrent.Callable;
 
-public class VerifyInfo implements Runnable
+public class VerifyInfo implements Callable
 {
+    String code;
+    String password;
+    String username;
+
+    public VerifyInfo(String code, String username, String password)
+    {
+        this.code = code;
+        this.password = password;
+        this.username = username;
+    }
+
     @Override
-    public void run()
+    public String[] call() throws Exception
     {
         try
         {
-            String code = "1347bvweihj23tg8971hj12896sa";
-            String password = "Marcusyim";
-            String username = "janepylo@hotmail.com";
-
             OkHttpClient client = new OkHttpClient();
 
             Request request = new Request.Builder().url("https://www.api.funfunmandarin.com/fun-fun-mandarin/rsa/public_key?mobileCode=" + code).build();
@@ -43,13 +53,6 @@ public class VerifyInfo implements Runnable
 
             String modulusString = tag.getModulus();
             String exponentString = tag.getExponent();
-
-
-            /*
-            String modulusString = "AIhDb/eTZx0a2a1nzAu9oX1jLp6CBecRF35EdswcQja021eKihLyrxlEpSLFYNGqDRpCqrQF/rKdkxR8Va0f61nDMBfb8k0LDPV9qx6ihkpQ1bN0BO/QQ8xavMSjG2eikfygUqS28goTByBk464ezirqPWET3m7Y/tKGDBbPzw0b";
-            String exponentString = "AQAB";
-
-             */
 
             byte[] decodedMod = Base64.decodeBase64(modulusString);
             String modulusHex = Hex.encodeHexString(decodedMod);
@@ -74,9 +77,7 @@ public class VerifyInfo implements Runnable
 
             Map<String, String> payload = new HashMap<String, String>();
             payload.put("phoneNum", username);
-            payload.put("sub", username + "," + (123456789));
-
-            //System.currentTimeMillis() / 1000L
+            payload.put("sub", username + "," + (System.currentTimeMillis() / 1000L));
 
             String token = JWT.create()
                     .withPayload(payload)
@@ -87,7 +88,7 @@ public class VerifyInfo implements Runnable
                     .add("rsaPassword", stringB64)
                     .add("deviceType", "Android")
                     .add("mobileCode", code)
-                    .add("loginType", "web")
+                    .add("loginType", "mobile")
                     .build();
 
 
@@ -100,17 +101,28 @@ public class VerifyInfo implements Runnable
             Call call = client.newCall(request1);
             Response response1 = call.execute();
 
-            Scanner sc = new Scanner(response1.body().byteStream());
+            InputStream fileInputStream1 = response1.body().byteStream();
 
-            while (sc.hasNextLine())
+            AuthPost authPost = mapper.readValue(fileInputStream1, AuthPost.class);
+            fileInputStream.close();
+
+            AuthTag authTag = authPost.getData();
+
+            String[] ret = null;
+
+            if (authTag != null)
             {
-                System.out.println(sc.nextLine());
+                ret = new String[2];
+                ret[0] = authTag.getToken();
+                ret[1] = authTag.getRandom();
             }
+
+            return ret;
         }
         catch (Exception e)
         {
             e.printStackTrace();
+            return null;
         }
-
     }
 }

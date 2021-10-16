@@ -1,16 +1,21 @@
 package com.marcus.funfunapp;
 
+import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
 import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
+import android.widget.Toast;
 
 import androidx.annotation.RequiresApi;
 import androidx.appcompat.app.AppCompatActivity;
 
 import java.util.Random;
-import java.util.concurrent.Executor;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
+import java.util.concurrent.Future;
 
 
 public class LoginPage extends AppCompatActivity
@@ -22,7 +27,7 @@ public class LoginPage extends AppCompatActivity
     {
         //sets the main screen
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_main);
+        setContentView(R.layout.login_page);
 
         //identifies these variables by their id
         username = findViewById(R.id.username);
@@ -57,10 +62,28 @@ public class LoginPage extends AppCompatActivity
         return ret;
     }
 
-    public void login()
+    public void login() throws ExecutionException, InterruptedException
     {
-        Executor executor = new NetworkExecutor();
-        executor.execute(new VerifyInfo());
+        ExecutorService executor = Executors.newSingleThreadExecutor();
+
+        String code = getRandomString(10);
+
+        Future<String[]> result = executor.submit(new VerifyInfo(code, username.getText().toString(), password.getText().toString()));
+
+        String[] output = result.get();
+
+        if (output == null)
+        {
+            Toast.makeText(LoginPage.this, "Incorrect Username or Password", Toast.LENGTH_SHORT).show();
+        }
+        else
+        {
+            Toast.makeText(LoginPage.this, "You have Authenticated Successfully", Toast.LENGTH_SHORT).show();
+            Future<Long[]> result1 = executor.submit(new GetPurchased(code, output[0], output[1]));
+            Long[] output1 = result1.get();
+            Intent intent = new Intent(LoginPage.this, LevelSelect.class);
+            startActivity(intent);
+        }
     }
 }
 
