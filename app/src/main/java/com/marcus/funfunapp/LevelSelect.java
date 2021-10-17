@@ -33,6 +33,7 @@ public class LevelSelect extends AppCompatActivity
     LevelAdapter levelAdapter;
     Button studyStarred;
     boolean[][] starredArr;
+    Long[] purchased;
     VarHolder varHolder;
 
 
@@ -40,6 +41,11 @@ public class LevelSelect extends AppCompatActivity
     {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.level_select);
+
+        Intent intent = this.getIntent();
+        Bundle bundle = intent.getExtras();
+
+        purchased = (Long[]) (bundle.getSerializable("purchased"));
 
         varHolder = new VarHolder();
         varHolder.initStarredArray();
@@ -75,7 +81,7 @@ public class LevelSelect extends AppCompatActivity
         levelSelect = (ListView) findViewById(R.id.level_list_view);
 
         //create and set custom adapter
-        levelAdapter = new LevelAdapter(this, R.layout.item_view, imageList, nameList, drawableList, starredArr);
+        levelAdapter = new LevelAdapter(this, R.layout.item_view, imageList, nameList, drawableList, purchased);
         levelSelect.setAdapter(levelAdapter);
     }
 

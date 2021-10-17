@@ -138,7 +138,6 @@ public class FlashCard extends AppCompatActivity {
         curr.setText("1");
         total = (TextView) findViewById(R.id.flashcard_total);
         total.setText(getResources().getString(R.string.integer_to_string, checkedWords.length));
-        star = (ImageView) findViewById(R.id.flashcard_image_star);
     }
 
     //animations

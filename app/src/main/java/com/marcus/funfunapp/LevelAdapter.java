@@ -17,6 +17,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 
+import androidx.core.content.ContextCompat;
 import androidx.recyclerview.widget.RecyclerView;
 
 import java.io.File;
@@ -31,11 +32,12 @@ public class LevelAdapter extends ArrayAdapter<String>
     List<String> nameList = new ArrayList<>();
     List<Drawable> drawableList = new ArrayList<>();
     boolean[][] starredArr;
+    Long[] purchased;
     VarHolder varHolder;
     Context mContext;
 
 
-    public LevelAdapter(Context context, int textViewResourceId, List<String> imageObjects, List<String> nameObjects, List<Drawable> drawableObjects, boolean[][] starredObjects)
+    public LevelAdapter(Context context, int textViewResourceId, List<String> imageObjects, List<String> nameObjects, List<Drawable> drawableObjects, Long[] purchasedObjects)
     {
         super(context, textViewResourceId, imageObjects);
 
@@ -44,6 +46,7 @@ public class LevelAdapter extends ArrayAdapter<String>
         imageList = imageObjects;
         nameList = nameObjects;
         drawableList = drawableObjects;
+        purchased = purchasedObjects;
         varHolder = new VarHolder(true);
         starredArr = varHolder.getStarredArr();
     }
@@ -82,28 +85,40 @@ public class LevelAdapter extends ArrayAdapter<String>
         holder.levelText.setText(nameList.get(position));
         holder.levelImage.setImageDrawable(drawableList.get(position));
 
-        holder.levelButton.setOnClickListener(new View.OnClickListener()
+        if (purchased[position] == null)
         {
-            @Override
-            public void onClick(View v)
+            holder.levelButton.setText("Locked");
+            holder.levelButton.setBackgroundResource(R.drawable.button_background);
+            holder.levelButton.setBackgroundTintList(ContextCompat.getColorStateList(v.getContext(), R.color.button_grey));
+        }
+        else
+        {
+            holder.levelButton.setText("Study");
+            holder.levelButton.setBackgroundResource(R.drawable.button_background);
+            holder.levelButton.setBackgroundTintList(ContextCompat.getColorStateList(v.getContext(), R.color.red));
+
+            holder.levelButton.setOnClickListener(new View.OnClickListener()
             {
-                int previous = varHolder.getNumPreviousDialogues(position);
-                int curr = varHolder.getDialoguesPerLevel(position);
+                @Override
+                public void onClick(View v)
+                {
+                    int previous = varHolder.getNumPreviousDialogues(position);
+                    int curr = varHolder.getDialoguesPerLevel(position);
 
-                Intent intent = new Intent(v.getContext(), WordChecklist.class);
-                Bundle bundle = new Bundle();
-                intent.putExtra("start", previous);
-                intent.putExtra("end", previous + curr);
-                intent.putExtra("starred", starredArr);
-                intent.putExtra("dialogues", varHolder.getSubDialogueArray(previous, previous + curr));
+                    Intent intent = new Intent(v.getContext(), WordChecklist.class);
+                    Bundle bundle = new Bundle();
+                    intent.putExtra("start", previous);
+                    intent.putExtra("end", previous + curr);
+                    intent.putExtra("starred", starredArr);
+                    intent.putExtra("dialogues", varHolder.getSubDialogueArray(previous, previous + curr));
 
+                    intent.putExtras(bundle);
+                    intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
 
-                intent.putExtras(bundle);
-                intent.setFlags(Intent.FLAG_ACTIVITY_NEW_TASK);
-
-                v.getContext().startActivity(intent);
-            }
-        });
+                    v.getContext().startActivity(intent);
+                }
+            });
+        }
 
         return v;
     }

@@ -80,8 +80,14 @@ public class LoginPage extends AppCompatActivity
         {
             Toast.makeText(LoginPage.this, "You have Authenticated Successfully", Toast.LENGTH_SHORT).show();
             Future<Long[]> result1 = executor.submit(new GetPurchased(code, output[0], output[1]));
+
             Long[] output1 = result1.get();
             Intent intent = new Intent(LoginPage.this, LevelSelect.class);
+
+            Bundle bundle = new Bundle();
+            bundle.putSerializable("purchased", output1);
+            intent.putExtras(bundle);
+
             startActivity(intent);
         }
     }
