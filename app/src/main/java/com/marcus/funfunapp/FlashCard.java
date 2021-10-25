@@ -63,9 +63,6 @@ public class FlashCard extends AppCompatActivity {
     List<String> allEnglishList = new ArrayList<>();
     List<String> allPinList = new ArrayList<>();
 
-    //audio players
-    MediaPlayer[] players;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -84,7 +81,6 @@ public class FlashCard extends AppCompatActivity {
         initAnimations();
         initButtons();
         changeCameraDistance();
-        initMediaPlayers();
     }
 
     private void changeCameraDistance()
@@ -98,16 +94,17 @@ public class FlashCard extends AppCompatActivity {
     //generate media players from mp3
     private void initMediaPlayers()
     {
-        players = new MediaPlayer[checkedNums.size()];
-
         try
         {
             for (int i = 0; i < checkedNums.size(); i++)
             {
+                /*
                 //String uriA = "@raw/audio_" + countPreviousDialogues + checkedNums[i];
                 String uriA = "@raw/red_spy_in_base";
                 int audioResource = getResources().getIdentifier(uriA, null, getPackageName());
                 players[i] = MediaPlayer.create(this, audioResource);
+
+                 */
             }
         }
         catch (Exception e)
@@ -174,6 +171,7 @@ public class FlashCard extends AppCompatActivity {
                     //current num is the current card number
                     currentNum++;
                     front.setText(getCurrentWord());
+                    System.out.println(getHashedChinese(getCurrentWord()));
                     back.setText(getCurrentDef());
                     pin.setText(getCurrentPin());
                     curr.setText(getResources().getString(R.string.integer_to_string, (currentNum + 1)));
@@ -191,6 +189,7 @@ public class FlashCard extends AppCompatActivity {
                 {
                     currentNum--;
                     front.setText(getCurrentWord());
+                    System.out.println(getHashedChinese(getCurrentWord()));
                     back.setText(getCurrentDef());
                     pin.setText(getCurrentPin());
                     curr.setText(getResources().getString(R.string.integer_to_string, (currentNum + 1)));
@@ -204,19 +203,23 @@ public class FlashCard extends AppCompatActivity {
         {
             public void onClick(View v)
             {
-                randomizeArrays(checkedWords, checkedDefs, checkedPins, players);
+                randomizeArrays(checkedWords, checkedDefs, checkedPins);
                 front.setText(getCurrentWord());
                 back.setText(getCurrentDef());
                 pin.setText(getCurrentPin());
             }
         });
 
+        //audio button
         audioButton = findViewById(R.id.flashcard_button_play_audio);
         audioButton.setOnClickListener(new View.OnClickListener()
         {
             public void onClick(View v)
             {
-                players[getCurrentNum()].start();
+                String uriA = "@raw/aud_hashed_" + getHashedChinese(getCurrentWord());
+                int audioResource = getResources().getIdentifier(uriA, null, getPackageName());
+                MediaPlayer temp = MediaPlayer.create(v.getContext(), audioResource);
+                temp.start();
             }
         });
     }
@@ -292,7 +295,7 @@ public class FlashCard extends AppCompatActivity {
     }
 
     //array randomizer for button
-    private void randomizeArrays(String[] word, String[] def, String[] pin, MediaPlayer[] player)
+    private void randomizeArrays(String[] word, String[] def, String[] pin)
     {
         Random rgen = new Random();
 
@@ -313,12 +316,31 @@ public class FlashCard extends AppCompatActivity {
             String temp2 = pin[i];
             pin[i] = pin[randomPosition];
             pin[randomPosition] = temp2;
-
-            //randomize players
-            MediaPlayer temp3 = player[i];
-            player[i] = player[randomPosition];
-            player[randomPosition] = temp3;
         }
+    }
+
+    public String getHashedChinese(String word)
+    {
+        String str = word;
+
+        str = str.replaceAll("\\.", "")
+                .replaceAll("（", "")
+                .replaceAll("）", "")
+                .replaceAll("，", "");
+
+        String[] split = str.split("\\.");
+
+        String split_str = split[0];
+
+        char[] ch = split_str.toCharArray();
+        String chars = "";
+
+        for (char c : ch)
+        {
+            chars += (int) (c);
+        }
+
+        return chars;
     }
 
     //doesn't work
